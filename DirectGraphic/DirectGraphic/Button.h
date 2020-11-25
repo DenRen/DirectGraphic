@@ -3,30 +3,31 @@
 
 enum class BUTTONSTATE
 {
-	WAIT, FOCUSED, CLICKED
+	WAIT, FOCUSED, PRESSED
 };
 
 class Button : public Widget
 {
 public:
 
-	void SetStateWait ();
-	void SetStateFocused ();
-	void SetStateClicked ();
+	Button (float coorX, float coorY);
 
-	BUTTONSTATE GetCurrentState ();
+	virtual void SetStateWait ();
+	virtual void SetStateFocused ();
+	virtual void SetStatePressed ();
 
-	void Update ();
+	virtual void RemStateFocused ();
+	virtual void RemStatePressed ();
 
-	void SetPassed ();
-	void SetReleased ();
+	virtual void Update ();
+	virtual BUTTONSTATE GetCurrentState ();
 
-	bool IsPassed ();
-	bool HaveSingleClick ();
+	virtual bool IsPressed ();
+	virtual bool IsClicked ();
 
 private:
-	bool m_passed = false;
-	bool m_clickSend = false;
+	bool m_focused = false;
+	bool m_pressed = false;
 
-	BUTTONSTATE m_state;
+	bool m_prevPressed = false;
 };

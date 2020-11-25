@@ -1,12 +1,13 @@
 #pragma once
+
 #include "NewsQueue.h"
 
 struct WidgetCoor
 {
-	float x = 0.0f;
-	float y = 0.0f;
+	float x;
+	float y;
 
-	WidgetCoor () = default;
+	WidgetCoor ();
 	WidgetCoor (WidgetCoor &) = default;
 	WidgetCoor (float x, float y);
 
@@ -19,8 +20,6 @@ struct WidgetCoor
 	WidgetCoor operator - (WidgetCoor &rhs);
 	WidgetCoor operator * (WidgetCoor &rhs);
 	WidgetCoor operator / (WidgetCoor &rhs);
-									
-	//WidgetCoor operator + (WidgetCoor &rhs);
 };
 
 class Widget
@@ -28,6 +27,7 @@ class Widget
 public:
 
 	Widget ();
+	Widget (float coorX, float coorY);
 	virtual ~Widget ();
 
 	virtual void Draw () = 0;
@@ -37,9 +37,11 @@ public:
 	virtual void Activate ();
 	virtual void Diactivate ();
 
-	virtual bool IsActive ();
+	virtual bool IsActive () const;
 
-	int GetID ();
+	void SetCoor (float x, float y);
+
+	int GetID () const;
 
 private:
 	const int m_id;

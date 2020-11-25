@@ -1,65 +1,66 @@
 #include "Button.h"
 
+Button::Button (float coorX, float coorY) :
+	Widget (coorX, coorY)
+{}
+
 void Button::SetStateWait ()
 {
-	m_clickSend = false;
-
-	m_state = BUTTONSTATE::WAIT;
+	m_focused = false;
 }
 
 void Button::SetStateFocused ()
 {
-	m_clickSend = false;
-
-	if (m_state != BUTTONSTATE::CLICKED)
-	{
-		m_state = BUTTONSTATE::FOCUSED;
-	}
+	m_focused = true;
 }
-
-void Button::SetStateClicked ()
+void Button::SetStatePressed ()
 {
-	m_state = BUTTONSTATE::CLICKED;
+	m_pressed = true;
 }
-
-BUTTONSTATE Button::GetCurrentState ()
+void Button::RemStateFocused ()
 {
-	return m_state;
+	m_focused = false;
+}
+void Button::RemStatePressed ()
+{
+	m_pressed = false;
 }
 
 void Button::Update ()
 {
-	if (m_state == BUTTONSTATE::CLICKED)
-	{
-		News news (this->GetID ());
-		news.m_news = NEWS::LBUTTONCLICKED;
-
-		SENDNEWS (news);
-	}
-}
-
-void Button::SetPassed ()
-{
-	m_passed = true;
-}
-
-void Button::SetReleased ()
-{
-	m_passed = false;
-}
-
-bool Button::IsPassed ()
-{
-	return m_passed;
-}
-
-bool Button::HaveSingleClick ()
-{
-	if (m_clickSend == false && m_state == BUTTONSTATE::CLICKED)
-	{
-		m_clickSend = true;
-		return true;
-	}
+	m_prevPressed = m_pressed;
 	
-	return false;
+	if (!m_focused)
+	{
+		m_pressed = false;
+	}
+}
+
+BUTTONSTATE Button::GetCurrentState ()
+{
+	if (!m_focused)
+	{
+		return BUTTONSTATE::WAIT;
+	}
+	else
+	{
+		if (m_pressed)
+		{
+			return BUTTONSTATE::PRESSED;
+		}
+		else
+		{
+			return BUTTONSTATE::FOCUSED;
+		}
+	}
+}
+
+bool Button::IsPressed ()
+{
+	return m_focused && m_pressed;
+}
+
+bool Button::IsClicked ()
+{
+	return m_focused && m_pressed && !m_prevPressed;
 }

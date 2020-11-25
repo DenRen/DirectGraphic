@@ -99,9 +99,6 @@
     <ClCompile Include="NewsQueue.cpp">
       <Filter>Исходные файлы\WinLib</Filter>
     </ClCompile>
-    <ClCompile Include="Rectangle.cpp">
-      <Filter>Исходные файлы\WinLib</Filter>
-    </ClCompile>
     <ClCompile Include="RectTexButton.cpp">
       <Filter>Исходные файлы\WinLib</Filter>
     </ClCompile>
@@ -131,6 +128,9 @@
     </ClCompile>
     <ClCompile Include="WinMgr.cpp">
       <Filter>Исходные файлы\WinLib</Filter>
+    </ClCompile>
+    <ClCompile Include="Rectangle.cpp">
+      <Filter>Исходные файлы\DX11FW</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -206,9 +206,6 @@
     <ClInclude Include="NewsQueue.h">
       <Filter>Файлы заголовков\WinLib</Filter>
     </ClInclude>
-    <ClInclude Include="Rectangle.h">
-      <Filter>Файлы заголовков\WinLib</Filter>
-    </ClInclude>
     <ClInclude Include="RectTexButton.h">
       <Filter>Файлы заголовков\WinLib</Filter>
     </ClInclude>
@@ -238,6 +235,9 @@
     </ClInclude>
     <ClInclude Include="WinMgr.h">
       <Filter>Файлы заголовков\WinLib</Filter>
+    </ClInclude>
+    <ClInclude Include="Rectangle.h">
+      <Filter>Файлы заголовков\DX11FW</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -44,7 +44,7 @@ void ScrollerHorizontal::InitDefTex_FirstButtonArrow (const char *wait, const ch
 	auto mgr = ResMgr::GetResMgr ();
 	def_texFirstButtonArrow.m_wait	  = mgr->GetTexture (wait);
 	def_texFirstButtonArrow.m_focused = mgr->GetTexture (focused);
-	def_texFirstButtonArrow.m_clicked = mgr->GetTexture (clicked);
+	def_texFirstButtonArrow.m_pressed = mgr->GetTexture (clicked);
 }
 
 void ScrollerHorizontal::InitDefTex_SecondButtonArrow (const char *wait, const char *focused, const char *clicked)
@@ -52,7 +52,7 @@ void ScrollerHorizontal::InitDefTex_SecondButtonArrow (const char *wait, const c
 	auto mgr = ResMgr::GetResMgr ();
 	def_texSecondButtonArrow.m_wait    = mgr->GetTexture (wait);
 	def_texSecondButtonArrow.m_focused = mgr->GetTexture (focused);
-	def_texSecondButtonArrow.m_clicked = mgr->GetTexture (clicked);
+	def_texSecondButtonArrow.m_pressed = mgr->GetTexture (clicked);
 }
 
 void ScrollerHorizontal::InitDefTex_ScrollSlider (const char *wait, const char *focused, const char *clicked)
@@ -60,7 +60,7 @@ void ScrollerHorizontal::InitDefTex_ScrollSlider (const char *wait, const char *
 	auto mgr = ResMgr::GetResMgr ();
 	def_texScrollSlider.m_wait    = mgr->GetTexture (wait);
 	def_texScrollSlider.m_focused = mgr->GetTexture (focused);
-	def_texScrollSlider.m_clicked = mgr->GetTexture (clicked);
+	def_texScrollSlider.m_pressed = mgr->GetTexture (clicked);
 }
 
 void ScrollerHorizontal::InitDefTex_SurfaceButton (const char *wait, const char *focused, const char *clicked)
@@ -68,7 +68,7 @@ void ScrollerHorizontal::InitDefTex_SurfaceButton (const char *wait, const char 
 	auto mgr = ResMgr::GetResMgr ();
 	def_texSurfaceButton.m_wait    = mgr->GetTexture (wait);
 	def_texSurfaceButton.m_focused = mgr->GetTexture (focused);
-	def_texSurfaceButton.m_clicked = mgr->GetTexture (clicked);
+	def_texSurfaceButton.m_pressed = mgr->GetTexture (clicked);
 }
 
 void ScrollerHorizontal::SetSlider (float state)
@@ -121,18 +121,18 @@ void ScrollerHorizontal::Update ()
 {
 	const float m_deltaX = 0.1;
 
-	if (m_scrollSlider->HaveSingleClick ())
+	if (m_scrollSlider->IsClicked ())
 	{
 		printf ("------------------------------\n");
 		MoveSlider (m_deltaMousePosition.x);
 	}
 
-	if (m_firstButtonArrow->HaveSingleClick ()   ) SetSlider (m_stateSlider - m_deltaX);
-	if (m_secondButtonArrow->HaveSingleClick ()  ) SetSlider (m_stateSlider + m_deltaX);
-	if (m_firstSurfaceButton->HaveSingleClick () ) SetSlider (m_stateSlider - m_deltaX);
-	if (m_secondSurfaceButton->HaveSingleClick ()) SetSlider (m_stateSlider + m_deltaX);
+	if (m_firstButtonArrow->IsClicked ()   ) SetSlider (m_stateSlider - m_deltaX);
+	if (m_secondButtonArrow->IsClicked ()  ) SetSlider (m_stateSlider + m_deltaX);
+	if (m_firstSurfaceButton->IsClicked () ) SetSlider (m_stateSlider - m_deltaX);
+	if (m_secondSurfaceButton->IsClicked ()) SetSlider (m_stateSlider + m_deltaX);
 	
-	m_prevScrollClicked = m_scrollSlider->GetCurrentState () == BUTTONSTATE::CLICKED;
+	m_prevScrollClicked = m_scrollSlider->GetCurrentState () == BUTTONSTATE::PRESSED;
 
 	WinMgr::Update ();
 }

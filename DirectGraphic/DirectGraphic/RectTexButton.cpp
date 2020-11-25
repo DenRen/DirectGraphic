@@ -5,11 +5,11 @@ TextureButton RectTexButton::def_textureButton (nullptr, nullptr, nullptr);
 
 void RectTexButton::InitializeDefValues (const char *pathTextureWait,
 										 const char *pathTextureFocus,
-										 const char *pathTextureClicked)
+										 const char *pathTexturePressed)
 {
 	def_textureButton.m_wait	= ResMgr::GetResMgr ()->GetTexture (pathTextureWait);
 	def_textureButton.m_focused = ResMgr::GetResMgr ()->GetTexture (pathTextureFocus);
-	def_textureButton.m_clicked = ResMgr::GetResMgr ()->GetTexture (pathTextureClicked);
+	def_textureButton.m_pressed = ResMgr::GetResMgr ()->GetTexture (pathTexturePressed);
 }
 
 RectTexButton::RectTexButton (float coorX, float coorY, float width, float height,
@@ -25,7 +25,8 @@ RectTexButton::RectTexButton (float coorX, float coorY, float width, float heigh
 RectTexButton::RectTexButton (float coorX, float coorY, float width, float height,
 							  TextureButton textureButton) :
 	RectTex (coorX, coorY, width, height),
-	m_textureButton (textureButton)
+	m_textureButton (textureButton),
+	Button (coorX, coorY)
 {
 	m_texture = textureButton.m_wait;
 }
@@ -45,10 +46,12 @@ void RectTexButton::Update ()
 	case BUTTONSTATE::FOCUSED:
 		Sprite::SetTexture (m_textureButton.m_focused);
 		break;
-	case BUTTONSTATE::CLICKED:
-		Sprite::SetTexture (m_textureButton.m_clicked);
+	case BUTTONSTATE::PRESSED:
+		Sprite::SetTexture (m_textureButton.m_pressed);
 		break;
 	}
+
+	Button::Update ();
 }
 
 void RectTexButton::HandleNews (News news)
@@ -62,33 +65,31 @@ void RectTexButton::HandleNews (News news)
 	{
 		if (news.m_news >= NEWS::MOUSEFIRST && news.m_news <= NEWS::MOUSELAST)
 		{
-			Button::SetStateWait ();
-			switch (news.m_news)
+			if (CheckContainCursor (news.m_mousePos))
 			{
-			case NEWS::MOUSEMOVE:
+				Button::SetStateFocused ();
+
+				if (news.m_news == NEWS::LBUTTONDOWN)
 				{
-					CheckContainCursor (news.m_mousePos);
-				} break;
-			case NEWS::LBUTTONDOWN:
-				{
-					CheckContainCursor (news.m_mousePos);
-					if (Button::GetCurrentState () == BUTTONSTATE::FOCUSED)
-					{
-						Button::SetPassed ();
-						Button::SetStateClicked ();
-					}
+					Button::SetStatePressed ();
 				}
+			}
+			else
+			{
+				Button::RemStateFocused ();
+			}
+
+			if (news.m_news == NEWS::LBUTTONUP)
+			{
+				Button::RemStatePressed ();
 			}
 		}
 	}
 }
 
-void RectTexButton::CheckContainCursor (MousePosition mousePosition)
+bool RectTexButton::CheckContainCursor (MousePosition mousePosition)
 {
-	if (RectTex::CheckContainCursor (mousePosition.x, mousePosition.y))
-	{
-		Button::SetStateFocused ();
-	}
+	return RectTex::CheckContainCursor (mousePosition.x, mousePosition.y);
 }
 
 TextureButton::TextureButton () :
@@ -100,5 +101,5 @@ TextureButton::TextureButton (Texture *textureWait,
 							  Texture *textureClicked) :
 	m_wait (textureWait),
 	m_focused (textureFocused),
-	m_clicked (textureClicked)
+	m_pressed (textureClicked)
 {}

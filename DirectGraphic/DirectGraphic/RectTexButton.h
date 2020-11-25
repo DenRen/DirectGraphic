@@ -10,7 +10,7 @@ struct TextureButton
 
 	Texture *m_wait;
 	Texture *m_focused;
-	Texture *m_clicked;
+	Texture *m_pressed;
 };
 
 class RectTexButton : public Button, public RectTex
@@ -34,7 +34,7 @@ public:
 
 private:
 
-	void CheckContainCursor (MousePosition mousePosition);
+	bool CheckContainCursor (MousePosition mousePosition);
 
 	TextureButton m_textureButton;
 
