@@ -48,7 +48,7 @@ void ScrollBarMgr::HandleNews (News news)
 
 				std::cout << m_curPath << std::endl;
 
-				// m_scrollBar.Update (names);
+				//m_scrollBar.Update (names);
 			}
 		}
 	}

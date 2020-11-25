@@ -17,39 +17,48 @@ WinMgr::~WinMgr ()
 
 void WinMgr::Draw ()
 {
-	int size = m_childWidgets.size ();
-	while (size--)
+	if (Widget::IsActive ())
 	{
-		auto child = m_childWidgets[size];
-		if (child != nullptr)
+		int size = m_childWidgets.size ();
+		while (size--)
 		{
-			child->Draw ();
+			auto child = m_childWidgets[size];
+			if (child != nullptr)
+			{
+				child->Draw ();
+			}
 		}
 	}
 }
 
 void WinMgr::Update ()
 {
-	int size = m_childWidgets.size ();
-	while (size--)
+	if (Widget::IsActive ())
 	{
-		auto child = m_childWidgets[size];
-		if (child != nullptr)
+		int size = m_childWidgets.size ();
+		while (size--)
 		{
-			child->Update ();
+			auto child = m_childWidgets[size];
+			if (child != nullptr)
+			{
+				child->Update ();
+			}
 		}
 	}
 }
 
 void WinMgr::HandleNews (News news)
 {
-	int size = m_childWidgets.size ();
-	while (size--)
+	if (Widget::IsActive ())
 	{
-		auto child = m_childWidgets[size];
-		if (child != nullptr)
+		int size = m_childWidgets.size ();
+		while (size--)
 		{
-			child->HandleNews (news);
+			auto child = m_childWidgets[size];
+			if (child != nullptr)
+			{
+				child->HandleNews (news);
+			}
 		}
 	}
 }

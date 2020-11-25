@@ -10,6 +10,8 @@ ScrollBar::ScrollBar (float coorX, float coorY, float width, float height,
 	WinMgr (this),
 
 	m_capacity (capacity),
+	m_numFirst (0),
+	m_numActive (0),
 	m_width (width),
 	m_height (height),
 	m_widthScroll (widthScroll)
