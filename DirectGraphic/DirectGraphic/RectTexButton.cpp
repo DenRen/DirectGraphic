@@ -78,6 +78,11 @@ void RectTexButton::HandleNews (News news)
 				{
 					Button::SetStatePressed ();
 				}
+				else if (news.m_news == NEWS::LBUTTONDBLCLK)
+				{
+					Button::SetStatePressed ();
+					Button::SetStateDoubleClick ();
+				}
 			}
 			else
 			{

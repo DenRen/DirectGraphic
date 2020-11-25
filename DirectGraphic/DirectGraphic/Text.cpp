@@ -1,13 +1,14 @@
 #include "Text.h"
 #include "DebugFunc.h"
 
-Text::Text (BitmapFont *font)
-{
-	m_font = font;
-	m_vertexBuffer = nullptr;
-	m_indexBuffer = nullptr;
-	m_numindex = 0;
-}
+Text::Text (BitmapFont *font) :
+	m_font (font),
+	m_vertexBuffer (nullptr),
+	m_indexBuffer  (nullptr),
+	m_numindex (0),
+	m_deltaX (0.0f),
+	m_deltaY (0.0f)
+{}
 
 bool Text::Init (const std::wstring &text, int screenWidth, int screenHeight)
 {
@@ -68,13 +69,19 @@ bool Text::m_InitBuffers (const std::wstring &text, int screenWidth, int screenH
 void Text::Render (float r, float g, float b, float x, float y)
 {
 	m_RenderBuffers ();
-	m_font->Render (m_numindex, r, g, b, x, -y);
+	m_font->Render (m_numindex, r, g, b, x + m_deltaX, -y + m_deltaY);
 }
 
 void Text::Close ()
 {
 	RELEASE (m_vertexBuffer);
 	RELEASE (m_indexBuffer);
+}
+
+void Text::Move (float deltaX, float deltaY)
+{
+	m_deltaX += deltaX;
+	m_deltaY += deltaY;
 }
 
 void Text::m_RenderBuffers ()

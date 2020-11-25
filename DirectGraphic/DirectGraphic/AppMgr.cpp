@@ -41,7 +41,6 @@ bool AppMgr::Run ()
 		else
 		{
 			m_engine->Run ();
-			//Sleep (10);
 		}
 	}
 

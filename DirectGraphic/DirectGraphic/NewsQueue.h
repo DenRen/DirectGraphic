@@ -41,6 +41,8 @@ public:
 	void AddNews (const News &news);
 	News GetNews ();
 
+	void Dump ();
+
 	NewsQueue &operator += (const News &news);
 
 private:

@@ -19,6 +19,8 @@ public:
 	void HandleNews (News news);
 
 private:
+	std::vector <std::string> GetNameFiles (const fs::path &path);
+
 	fs::path m_curPath;
 	ScrollBar *m_scrollBar;
 };

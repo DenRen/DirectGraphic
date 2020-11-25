@@ -172,6 +172,4 @@ void ScrollerVertical::HandleNews (News news)
 			} break;
 		}
 	}
-
-	//WinMgr::HandleNews (news);
 }

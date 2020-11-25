@@ -34,7 +34,6 @@ void ScrollBar::Draw ()
 	{
 		m_bar[size]->Draw ();
 	}
-
 }
 
 void ScrollBar::HandleNews (News news)
@@ -51,8 +50,8 @@ void ScrollBar::HandleNews (News news)
 	{
 		for (int i = 0; i < m_numActive; i++)
 		{
-			if (//m_idItemBar[i] == news.m_idSender &&
-				news.m_news == NEWS::LBUTTONCLICKED)
+			if (news.m_idSender == m_bar[i]->GetID () &&
+				news.m_news == NEWS::LBUTTONDBLCLK)
 			{
 				std::string *nameFile = &m_names[m_numFirst + i];
 
@@ -61,7 +60,7 @@ void ScrollBar::HandleNews (News news)
 				news.m_args = (void *) nameFile;
 
 				SENDNEWS (news);
-				
+
 				break;
 			}
 		}
@@ -73,6 +72,7 @@ void ScrollBar::Update ()
 	WinMgr::Update ();
 
 	int size = m_bar.size ();
+	auto temp_ = NewsQueue::GetNewsQueue ();
 	while (size--)
 	{
 		m_bar[size]->Update ();
@@ -104,7 +104,7 @@ void ScrollBar::Update (std::vector <std::string> names)
 	{
 		auto item = new RectTexButtonText (coorX, coorY, widthItem, heightItem, names[i].c_str ());
 		m_bar.push_back (item);
-		//m_idItemBar.push_back (i);
+		coorY -= heightItem;
 	}
 }
 

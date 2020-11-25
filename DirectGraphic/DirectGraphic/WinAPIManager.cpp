@@ -12,7 +12,7 @@ bool WinAPIManager::Initialize (const char *title, unsigned width, unsigned heig
 
 	m_hInstance = GetModuleHandle (nullptr);
 
-	wcex.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
+	wcex.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC | CS_DBLCLKS;
 	wcex.lpfnWndProc = WndProc;
 	wcex.cbClsExtra = 0;
 	wcex.cbWndExtra = 0;
@@ -58,6 +58,7 @@ bool WinAPIManager::Initialize (const char *title, unsigned width, unsigned heig
 	}
 
 	int nStyle = WS_OVERLAPPED | WS_SYSMENU | WS_VISIBLE | WS_CAPTION | WS_MINIMIZEBOX;
+	//int nStyle = CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS;
 	m_hWnd = CreateWindowEx (WS_EX_APPWINDOW, title, title,
 							 nStyle,
 							 locateX, locateY, screenWidth, screenHeight,
@@ -135,6 +136,10 @@ LRESULT CALLBACK WndProc (HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)
 			//WndCnf::ConvertMouseCoor (lParam, x, y);
 			//printf ("%f %f\n", x, y);
 			printf ("BUTTON DWON\n");
+		} break;
+	case WM_LBUTTONDBLCLK:
+		{
+			printf ("LBUTTON DBL\n");
 		} break;
 	default:
 		{

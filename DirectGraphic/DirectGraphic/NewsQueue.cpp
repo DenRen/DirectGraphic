@@ -39,7 +39,7 @@ int NewsQueue::GetSize ()
 }
 
 void NewsQueue::GetWinAPINews (UINT msg, WPARAM wParam, LPARAM lParam)
-{ 
+{
 	#define ADDNEWS(msg)			\
 	case WM_##msg:					\
 	{								\
@@ -106,6 +106,15 @@ News NewsQueue::GetNews ()
 	}
 
 	return m_buffer[++m_begin];
+}
+
+void NewsQueue::Dump ()
+{
+	for (int i = m_begin + 1; i <= m_tail; i++)
+	{
+		News news = m_buffer[i];
+		printf ("Sender: %d\t-> %d\n", news.m_idSender, news.m_news);
+	}
 }
 
 NewsQueue &NewsQueue::operator += (const News &news)

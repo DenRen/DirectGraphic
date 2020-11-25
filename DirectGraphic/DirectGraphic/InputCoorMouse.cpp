@@ -1,4 +1,5 @@
 #include <cmath>
+#include <cstdio>
 
 #include "InputCoorMouse.h"
 
@@ -23,6 +24,7 @@ void InputCoorMouse::SetPosition (float coorX, float coorY)
 
 MousePosition InputCoorMouse::GetPosition ()
 {
+	m_changed = false;
 	return m_mousePos;
 }
 
@@ -33,7 +35,7 @@ bool InputCoorMouse::Changed ()
 
 void InputCoorMouse::CheckChanged ()
 {
-	const float eps = 0.001;
+	const float eps = 0.005;
 	if (fabs (m_mousePos.x - m_prevMousePos.x) > eps ||
 		fabs (m_mousePos.y - m_prevMousePos.y) > eps)
 	{

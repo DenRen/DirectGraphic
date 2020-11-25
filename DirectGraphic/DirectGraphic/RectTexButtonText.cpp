@@ -37,3 +37,9 @@ void RectTexButtonText::HandleNews (News news)
 {
 	RectTexButton::HandleNews (news);
 }
+
+void RectTexButtonText::Move (float deltaX, float deltaY)
+{
+	RectTex::Move (deltaX, deltaY);
+	m_text->Move  (deltaX, deltaY);
+}

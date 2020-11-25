@@ -15,6 +15,8 @@ public:
 	void Update ();
 	void HandleNews (News news);
 
+	void Move (float deltaX, float deltaY);
+
 private:
 	Text *m_text;
 

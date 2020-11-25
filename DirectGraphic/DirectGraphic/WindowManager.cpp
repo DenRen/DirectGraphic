@@ -107,15 +107,14 @@ void WindowManager::Update ()
 		News newsMouseCoor ((uint16_t) SENDER_NEWS::WINAPIWNDPROC);
 		newsMouseCoor.m_news = NEWS::MOUSEMOVE;
 		newsMouseCoor.m_mousePos = InputCoorMouse::GetPosition ();
-
-		//printf ("%f %f\n", newsMouseCoor.m_mousePos.x, newsMouseCoor.m_mousePos.y);
 		WinMgr::HandleNews (newsMouseCoor);
 	}
 	
 	int curSize = m_newsQueue->GetSize ();
 	while (curSize--)
 	{
-		WinMgr::HandleNews (m_newsQueue->GetNews ());
+		News news = m_newsQueue->GetNews ();
+		WinMgr::HandleNews (news);
 	}
 
 	WinMgr::Update ();

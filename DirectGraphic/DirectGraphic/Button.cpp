@@ -1,3 +1,5 @@
+#include <cstdio>
+
 #include "Button.h"
 
 void Button::SetStateWait ()
@@ -13,6 +15,10 @@ void Button::SetStatePressed ()
 {
 	m_pressed = true;
 }
+void Button::SetStateDoubleClick ()
+{
+	m_doubleClick = true;
+}
 void Button::RemStateFocused ()
 {
 	m_focused = false;
@@ -24,6 +30,25 @@ void Button::RemStatePressed ()
 
 void Button::Update ()
 {
+	if (IsClicked ())
+	{ 
+		News news (GetID ());
+		news.m_news = NEWS::LBUTTONCLICKED;
+		news.m_args = nullptr;
+
+		SENDNEWS (news);
+	}
+
+	if (IsDoubleClicked ())
+	{
+		News news (Widget::GetID ());
+		news.m_news = NEWS::LBUTTONDBLCLK;
+		news.m_args = nullptr;
+
+		SENDNEWS (news);
+		m_doubleClick = false;
+	}
+
 	m_prevPressed = m_pressed;
 	
 	if (!m_focused)
@@ -59,4 +84,9 @@ bool Button::IsPressed ()
 bool Button::IsClicked ()
 {
 	return m_focused && m_pressed && !m_prevPressed;
+}
+
+bool Button::IsDoubleClicked ()
+{
+	return m_focused && m_doubleClick;
 }

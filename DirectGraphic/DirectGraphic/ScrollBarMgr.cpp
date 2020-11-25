@@ -10,29 +10,17 @@ ScrollBarMgr::ScrollBarMgr (float coorX, float coorY, float width, float height,
 	m_scrollBar (new ScrollBar (coorX, coorY, width, height,
 							    widthScroll, relHeightSlider, capacity))
 {
-	WinMgr::AddChildWidget (m_scrollBar);
-
-	std::vector <std::string> files;
-
-	fs::directory_iterator begin (initPath);
-	fs::directory_iterator end;
-
-	std::vector <fs::path> childdirs;
-
-	for (; begin != end; begin++)
-		files.push_back (begin->path ().filename ().u8string ());
-
-	m_scrollBar->Update (files);
+	m_scrollBar->Update (GetNameFiles (initPath));
 }
 
 void ScrollBarMgr::Draw ()
 {
-	WinMgr::Draw ();
+	m_scrollBar->Draw ();
 }
 
 void ScrollBarMgr::Update ()
 {
-	WinMgr::Update ();
+	m_scrollBar->Update ();
 }
 
 void ScrollBarMgr::HandleNews (News news)
@@ -46,14 +34,23 @@ void ScrollBarMgr::HandleNews (News news)
 				std::string nameFile = *((std::string *) news.m_args);
 				m_curPath.append (nameFile);
 
-				std::cout << m_curPath << std::endl;
-
-				//m_scrollBar.Update (names);
+				m_scrollBar->Update (GetNameFiles (m_curPath));
 			}
 		}
 	}
-	else
-	{
-		WinMgr::HandleNews (news);
-	}
+
+	m_scrollBar->HandleNews (news);
+}
+
+std::vector <std::string> ScrollBarMgr::GetNameFiles (const fs::path &path)
+{
+	std::vector <std::string> files;
+
+	fs::directory_iterator begin (path);
+	fs::directory_iterator end;
+
+	for (; begin != end; begin++)
+		files.push_back (begin->path ().filename ().u8string ());
+
+	return files;
 }

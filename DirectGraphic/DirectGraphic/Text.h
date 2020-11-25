@@ -13,9 +13,14 @@ public:
 	void Render (float r, float g, float b, float x, float y);
 	void Close ();
 
+	void Move (float deltaX, float deltaY);
+
 private:
 	bool m_InitBuffers (const std::wstring &text, int scrW, int scrH);
 	void m_RenderBuffers ();
+
+	float m_deltaX;
+	float m_deltaY;
 
 	BitmapFont *m_font;
 	ID3D11Buffer *m_vertexBuffer;
