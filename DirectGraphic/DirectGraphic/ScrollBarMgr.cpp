@@ -5,7 +5,7 @@
 ScrollBarMgr::ScrollBarMgr (float coorX, float coorY, float width, float height,
 							float widthScroll, float relHeightSlider, int capacity,
 							fs::path initPath) :
-	WinMgr (this),
+	WinMgr (coorX, coorY),
 	m_curPath (initPath),
 	m_scrollBar (new ScrollBar (coorX, coorY, width, height,
 							    widthScroll, relHeightSlider, capacity))

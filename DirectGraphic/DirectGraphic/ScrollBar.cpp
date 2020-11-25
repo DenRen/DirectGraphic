@@ -7,8 +7,7 @@ namespace fs = std::experimental::filesystem;
 ScrollBar::ScrollBar (float coorX, float coorY, float width, float height,
 					  float widthScroll, float relHeightSlider, int capacity) :
 	m_scroller (new ScrollerVertical (coorX, coorY, height, widthScroll, relHeightSlider)),
-	WinMgr (this),
-
+	WinMgr (coorX, coorY),
 	m_capacity (capacity),
 	m_numFirst (0),
 	m_numActive (0),
@@ -52,7 +51,7 @@ void ScrollBar::HandleNews (News news)
 	{
 		for (int i = 0; i < m_numActive; i++)
 		{
-			if (m_idItemBar[i] == news.m_idSender &&
+			if (//m_idItemBar[i] == news.m_idSender &&
 				news.m_news == NEWS::LBUTTONCLICKED)
 			{
 				std::string *nameFile = &m_names[m_numFirst + i];
@@ -94,7 +93,8 @@ void ScrollBar::Update (std::vector <std::string> names)
 		m_numActive = quantity;
 
 	float coorX = 0.0f, coorY = 0.0f;
-	m_scroller->GetStartCoord (&coorX, &coorY);
+	
+	m_scroller->AddWinMgrCoor (coorX, coorY);
 	coorX += m_widthScroll;
 
 	float heightItem = m_height / m_capacity;
@@ -104,7 +104,7 @@ void ScrollBar::Update (std::vector <std::string> names)
 	{
 		auto item = new RectTexButtonText (coorX, coorY, widthItem, heightItem, names[i].c_str ());
 		m_bar.push_back (item);
-		m_idItemBar.push_back (i);
+		//m_idItemBar.push_back (i);
 	}
 }
 
@@ -118,5 +118,5 @@ void ScrollBar::Clear ()
 
 	m_bar.clear ();
 	m_names.clear ();
-	m_idItemBar.clear ();
+	//m_idItemBar.clear ();
 }

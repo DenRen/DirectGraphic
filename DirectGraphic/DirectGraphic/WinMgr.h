@@ -4,28 +4,50 @@
 
 #include "Widget.h"
 
+struct WinCoor
+{
+	float x;
+	float y;
+
+	WinCoor ();
+	WinCoor (const WinCoor &other) = default;
+
+	WinCoor (float x, float y);
+
+	WinCoor &operator += (const WinCoor &rhs);
+	WinCoor &operator -= (const WinCoor &rhs);
+	WinCoor &operator *= (const WinCoor &rhs);
+	WinCoor &operator /= (const WinCoor &rhs);
+
+	WinCoor operator + (WinCoor &rhs);
+	WinCoor operator - (WinCoor &rhs);
+	WinCoor operator * (WinCoor &rhs);
+	WinCoor operator / (WinCoor &rhs);
+};
+
 class WinMgr : public Widget
 {
 public:
 
-	WinMgr (WinMgr *parent, float startCoorX = 0.0f, float startCoorY = 0.0f);
+	WinMgr (WinCoor coorParent);
+	WinMgr (float parentCoorX, float parentCoorY);
 	virtual ~WinMgr ();
 
 	virtual void Draw ();
 	virtual void Update ();
 	virtual void HandleNews (News news);
 	
-	void InitStartCoord (float x, float y);
 	void AddChildWidget (Widget *childWidget);
 	void DeleteAllChilds ();
-	void GetStartCoord (float*x, float *y);
 
 	WinMgr &operator += (Widget *childWidget);
 
-private:
-	float m_startCoorX = 0;
-	float m_startCoorY = 0;
+	void AddWinMgrCoor (float &coorX, float &coorY);
 
-	WinMgr *m_parent;
+
+private:
 	std::vector <Widget *> m_childWidgets;
+
+	WinCoor m_coor;
 };
+

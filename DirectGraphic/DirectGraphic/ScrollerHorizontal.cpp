@@ -1,6 +1,6 @@
 #include "ScrollerHorizontal.h"
 #include "ResourceManager.h"
-
+/*
 TextureButton ScrollerHorizontal::def_texFirstButtonArrow;
 TextureButton ScrollerHorizontal::def_texSecondButtonArrow;
 TextureButton ScrollerHorizontal::def_texScrollSlider;
@@ -13,7 +13,7 @@ ScrollerHorizontal::ScrollerHorizontal (float coorX, float coorY, float width, f
 
 	m_stateSlider = 0;
 	m_heightSurface = width - 2 * height;
-	m_relHeightSlider = relWidthScroll;
+	m_relLengthSlider = relWidthScroll;
 
 	m_firstButtonArrow   = new RectTexButton (coorX,				coorY, height,	height,
 											  def_texFirstButtonArrow);
@@ -82,12 +82,12 @@ void ScrollerHorizontal::SetSlider (float state)
 		state = 1.0f;
 	}
 
-	//if (state <=     m_relHeightSlider / 2) state =        m_relHeightSlider / 2;
-	//if (state >= 1 - m_relHeightSlider / 2) state = 1.0f - m_relHeightSlider / 2;
+	//if (state <=     m_relLengthSlider / 2) state =        m_relLengthSlider / 2;
+	//if (state >= 1 - m_relLengthSlider / 2) state = 1.0f - m_relLengthSlider / 2;
 
 	float saveState = state;
-	state		   = m_relHeightSlider / 2 + (1 - m_relHeightSlider) * state;
-	float stateOld = m_relHeightSlider / 2 + (1 - m_relHeightSlider) * m_stateSlider;
+	state		   = m_relLengthSlider / 2 + (1 - m_relLengthSlider) * state;
+	float stateOld = m_relLengthSlider / 2 + (1 - m_relLengthSlider) * m_stateSlider;
 
 	float deltaX = 0.5 * m_heightSurface * ((double) state - stateOld);
 
@@ -104,7 +104,7 @@ void ScrollerHorizontal::SetSlider (float state)
 
 void ScrollerHorizontal::MoveSlider (float deltaState)
 {
-	SetSlider (m_stateSlider + deltaState / (m_heightSurface * (1 - m_relHeightSlider)));
+	SetSlider (m_stateSlider + deltaState / (m_heightSurface * (1 - m_relLengthSlider)));
 }
 
 float ScrollerHorizontal::GetStateSlider ()
@@ -170,4 +170,4 @@ void ScrollerHorizontal::HandleNews (News news)
 	}
 	
 	//WinMgr::HandleNews (news);
-}
+}*/

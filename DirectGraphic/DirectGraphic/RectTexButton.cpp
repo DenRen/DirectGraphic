@@ -25,19 +25,22 @@ RectTexButton::RectTexButton (float coorX, float coorY, float width, float heigh
 RectTexButton::RectTexButton (float coorX, float coorY, float width, float height,
 							  TextureButton textureButton) :
 	RectTex (coorX, coorY, width, height),
-	m_textureButton (textureButton),
-	Button (coorX, coorY)
+	m_textureButton (textureButton)
 {
 	m_texture = textureButton.m_wait;
 }
 
 void RectTexButton::Draw ()
 {
+	if (!Widget::IsActive ()) return;
+
 	RectTex::Draw ();
 }
 
 void RectTexButton::Update ()
 {
+	if (!Widget::IsActive ()) return;
+
 	switch (Button::GetCurrentState ())
 	{
 	case BUTTONSTATE::WAIT:
@@ -60,6 +63,8 @@ void RectTexButton::HandleNews (News news)
 	// Ïðèõîäèò news, çàïîìíèàåì íåîáõîäèìûå äàííûå è âûñòàâëÿåì ðàäíûå ôëàãè.
 	// Çàòåì â Update () ýòè ôëàãè è äàííûå îáðàáàòûâàåì. Èìåííî òàì îòïðàâëÿåì íîâûå news
 	// è óñòàíàâëèâàåì íîâûå òåêñòóðû, íàïðèìåð. Íî ýòî îáîáùåíèå äëÿ äëÿ îáùèõ ìåòîäîâ.
+
+	if (!Widget::IsActive ()) return;
 
 	if (news.m_idSender == (uint16_t) SENDER_NEWS::WINAPIWNDPROC)
 	{

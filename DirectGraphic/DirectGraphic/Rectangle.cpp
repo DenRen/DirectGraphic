@@ -53,7 +53,7 @@ void RectTex::ScaleUp (float ScaleUpX, float ScaleUpY, float ScaleUpZ)
 
 void RectTex::Move (float deltaX, float deltaY, float deltaZ)
 {
-	Sprite::Move (deltaX, deltaY, deltaZ);
+	Sprite::Move (deltaX, deltaY, 0);
 	m_rectFigure.Move (deltaX, deltaY);
 }
 

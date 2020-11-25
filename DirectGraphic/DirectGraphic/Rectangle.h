@@ -38,7 +38,7 @@ public:
 								 ID3D11Buffer *CBMatrixes, WVPMatrixes *WVPMatrixes);
 
 	void ScaleUp (float ScaleUpX, float ScaleUpY, float ScaleUpZ);
-	void Move (float x, float y, float z);
+	void Move (float x, float y, float z = 0);
 
 	bool CheckContainCursor (float coorX, float coorY);
 

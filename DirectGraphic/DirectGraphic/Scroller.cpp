@@ -1,11 +1,25 @@
 #include "Scroller.h"
 
-Scroller::Scroller () :
-	m_stateSlider (0),
+Scroller::Scroller (WinCoor coor, float lenght, float width, float relLengthSlider) :
 	m_firstButtonArrow		(nullptr),
 	m_secondButtonArrow		(nullptr),
 	m_scrollSlider			(nullptr),
 	m_firstSurfaceButton	(nullptr),
 	m_secondSurfaceButton	(nullptr),
-	WinMgr (this)
+
+	m_stateSlider	  (0.0f),
+	m_width			  (width),
+	m_length		  (lenght),
+	m_relLengthSlider (relLengthSlider),
+	
+	m_startSlidering (false),
+	m_prevMousePosition (0.0f),
+	m_deltaMousePosition (0.0f),
+
+	WinMgr (coor)
+{}
+
+Scroller::Scroller (float coorX, float coorY,
+					float lenght, float width, float relLengthSlider) :
+	Scroller (WinCoor (coorX, coorY), lenght, width, relLengthSlider)
 {}

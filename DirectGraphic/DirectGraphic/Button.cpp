@@ -1,9 +1,5 @@
 #include "Button.h"
 
-Button::Button (float coorX, float coorY) :
-	Widget (coorX, coorY)
-{}
-
 void Button::SetStateWait ()
 {
 	m_focused = false;

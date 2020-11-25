@@ -5,7 +5,8 @@
 class WindowManager : public WinMgr
 {
 public:
-	WindowManager ();
+	WindowManager (WinCoor coor);
+	WindowManager (float coorX, float coorY);
 	bool Initialize ();
 	
 	void Draw ();

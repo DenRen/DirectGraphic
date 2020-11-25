@@ -7,12 +7,27 @@ class Scroller : public WinMgr
 {
 public:
 
-	Scroller ();
+	Scroller (WinCoor coor, float lenght, float width, float relLengthSlider);
+	Scroller (float coorX, float coorY,
+			  float lenght, float width, float relLengthSlider);
 
 protected:
+
 	float m_stateSlider;
-	float m_heightSurface;
-	float m_relHeightSlider;
+	float m_relLengthSlider;
+
+	bool m_startSlidering;
+	float m_prevMousePosition;
+	float m_deltaMousePosition;
+
+	float m_curCoord;
+	float m_startCoord;
+	float m_startStateSlider;
+
+	bool m_mousePressedAndScrolled = false;
+
+	float m_width;
+	float m_length;
 
 	RectTexButton *m_firstButtonArrow;
 	RectTexButton *m_secondButtonArrow;

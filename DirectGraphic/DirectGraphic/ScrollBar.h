@@ -36,5 +36,4 @@ private:
 	ScrollerVertical *m_scroller;
 	RectTex *m_backGround;
 	std::vector <RectTexButtonText *> m_bar;
-	std::vector <int> m_idItemBar;
 };

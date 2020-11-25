@@ -10,8 +10,6 @@ class Button : public Widget
 {
 public:
 
-	Button (float coorX, float coorY);
-
 	virtual void SetStateWait ();
 	virtual void SetStateFocused ();
 	virtual void SetStatePressed ();

@@ -85,7 +85,7 @@ bool Engine::Initialize (HINSTANCE hInstance, HWND hWnd)
 
     // Initialize scene objects --------------------------------------------------------------
 
-    m_windowManager = new WindowManager ();
+    m_windowManager = new WindowManager (-0.5, 0.5);
     if (!m_windowManager->Initialize ())                               RETURN_FALSE;
 
     return true;

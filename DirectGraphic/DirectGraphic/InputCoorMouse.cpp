@@ -33,8 +33,9 @@ bool InputCoorMouse::Changed ()
 
 void InputCoorMouse::CheckChanged ()
 {
-	if (fabs (m_mousePos.x - m_prevMousePos.x) > 0.01 ||
-		fabs (m_mousePos.y - m_prevMousePos.y) > 0.01)
+	const float eps = 0.001;
+	if (fabs (m_mousePos.x - m_prevMousePos.x) > eps ||
+		fabs (m_mousePos.y - m_prevMousePos.y) > eps)
 	{
 		m_prevMousePos = m_mousePos;
 		m_changed = true;

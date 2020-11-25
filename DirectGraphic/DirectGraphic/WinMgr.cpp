@@ -1,9 +1,11 @@
 #include "WinMgr.h"
 
-WinMgr::WinMgr (WinMgr *parent, float startCoorX, float startCoorY) :
-	m_parent (parent),
-	m_startCoorX (startCoorX),
-	m_startCoorY (startCoorY)
+WinMgr::WinMgr (WinCoor coorParent) :
+	m_coor (coorParent)
+{}
+
+WinMgr::WinMgr (float parentCoorX, float parentCoorY) :
+	m_coor (parentCoorX, parentCoorY)
 {}
 
 WinMgr::~WinMgr ()
@@ -63,12 +65,6 @@ void WinMgr::HandleNews (News news)
 	}
 }
 
-void WinMgr::InitStartCoord (float x, float y)
-{
-	m_startCoorX = x;
-	m_startCoorY = y;
-}
-
 void WinMgr::AddChildWidget (Widget *childWidget)
 {
 	m_childWidgets.push_back (childWidget);
@@ -83,15 +79,71 @@ void WinMgr::DeleteAllChilds ()
 	}
 }
 
-void WinMgr::GetStartCoord (float *x, float *y)
-{
-	*x = m_startCoorX;
-	*y = m_startCoorY;
-}
-
 WinMgr &WinMgr::operator+=(Widget *childWidget)
 {
 	AddChildWidget (childWidget);
 	
 	return *this;
+}
+
+void WinMgr::AddWinMgrCoor (float &coorX, float &coorY)
+{
+	coorX += m_coor.x;
+	coorY += m_coor.y;
+}
+
+// -----------------------------------------------------------------------
+
+WinCoor::WinCoor () :
+	WinCoor (0, 0)
+{}
+WinCoor::WinCoor (float x, float y) :
+	x (x),
+	y (y)
+{}
+
+WinCoor &WinCoor::operator += (const WinCoor &rhs)
+{
+	x += rhs.x;
+	y += rhs.y;
+
+	return *this;
+}
+WinCoor &WinCoor::operator -= (const WinCoor &rhs)
+{
+	x -= rhs.x;
+	y -= rhs.y;
+
+	return *this;
+}
+WinCoor &WinCoor::operator *= (const WinCoor &rhs)
+{
+	x *= rhs.x;
+	y *= rhs.y;
+
+	return *this;
+}
+WinCoor &WinCoor::operator /= (const WinCoor &rhs)
+{
+	x /= rhs.x;
+	y /= rhs.y;
+
+	return *this;
+}
+
+WinCoor WinCoor::operator + (WinCoor &rhs)
+{
+	return WinCoor (x + rhs.x, y + rhs.y);
+}
+WinCoor WinCoor::operator - (WinCoor &rhs)
+{
+	return WinCoor (x - rhs.x, y - rhs.y);
+}
+WinCoor WinCoor::operator * (WinCoor &rhs)
+{
+	return WinCoor (x * rhs.x, y * rhs.y);
+}
+WinCoor WinCoor::operator / (WinCoor &rhs)
+{
+	return WinCoor (x / rhs.x, y / rhs.y);
 }

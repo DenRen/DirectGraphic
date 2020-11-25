@@ -1,4 +1,5 @@
 #pragma once
+/*
 #include "Scroller.h"
 
 class ScrollerHorizontal : public Scroller
@@ -31,4 +32,4 @@ private:
 	bool m_mousePosUpdated = false;
 	MousePosition m_prevMousePosition  = {0, 0};
 	MousePosition m_deltaMousePosition = {0, 0};
-};
+};*/

@@ -8,10 +8,14 @@
 
 #include "ScrollBarMgr.h"
 
-WindowManager::WindowManager () :
-	WinMgr (this),
+WindowManager::WindowManager (WinCoor coor) :
+	WinMgr (coor),
 	m_newsQueue (NewsQueue::GetNewsQueue ()),
 	m_backGround (nullptr)
+{}
+
+WindowManager::WindowManager (float coorX, float coorY) :
+	WindowManager (WinCoor{coorX, coorY})
 {}
 
 bool WindowManager::Initialize ()
@@ -32,7 +36,7 @@ bool WindowManager::Initialize ()
 	*/
 
 	// Horizontal default values --------------------------------------------------------------------------
-
+	/*
 	ScrollerHorizontal::InitDefTex_SurfaceButton	 ("Texture\\H\\WidgetWait.png",
 													  "Texture\\H\\WidgetFocused.png",
 													  "Texture\\H\\WidgetClicked.png");
@@ -48,7 +52,7 @@ bool WindowManager::Initialize ()
 	ScrollerHorizontal::InitDefTex_ScrollSlider		 ("Texture\\H\\WidgetScrollerSlider_Wait.png",
 													  "Texture\\H\\WidgetScrollerSlider_Focused.png",
 													  "Texture\\H\\WidgetScrollerSlider_Clicked.png");
-	
+	*/
 	// Vertical default values ----------------------------------------------------------------------------
 
 	ScrollerVertical::InitDefTex_SurfaceButton     ("Texture\\V\\WidgetWait.png",

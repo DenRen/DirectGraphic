@@ -6,31 +6,31 @@ TextureButton ScrollerVertical::def_texSecondButtonArrow;
 TextureButton ScrollerVertical::def_texScrollSlider;
 TextureButton ScrollerVertical::def_texSurfaceButton;
 
-ScrollerVertical::ScrollerVertical (float coorX, float coorY, float height, float width,
-									float relHeightScroll)
+ScrollerVertical::ScrollerVertical (float coorX, float coorY, float length, float width,
+									float relLengthSlider) :
+	Scroller (coorX, coorY, length, width, relLengthSlider)
 {
 
-	MYASSERT (relHeightScroll <= 1.0f);
+	MYASSERT (relLengthSlider <= 1.0f);
 
-	m_stateSlider = 0;
-	m_heightSurface = height - 2 * width;
-	m_relHeightSlider = relHeightScroll;
+	float railLength = length - 2 * width;
 
 	m_firstButtonArrow = new RectTexButton (coorX, coorY, width, width,
 											def_texFirstButtonArrow);
 	coorY -= width;
 
-	m_secondButtonArrow = new RectTexButton (coorX, coorY - m_heightSurface, width, width,
+	m_secondButtonArrow = new RectTexButton (coorX, coorY - railLength, width, width,
 											 def_texSecondButtonArrow);
 
 
-	m_scrollSlider = new RectTexButton (coorX, coorY, width, m_heightSurface * relHeightScroll,
+	m_scrollSlider = new RectTexButton (coorX, coorY, width, railLength * m_relLengthSlider,
 										def_texScrollSlider);
 
-	m_firstSurfaceButton = new RectTexButton (coorX, coorY, width, m_heightSurface * relHeightScroll / 2,
+	m_firstSurfaceButton = new RectTexButton (coorX, coorY, width, railLength * m_relLengthSlider / 2,
 											  def_texSurfaceButton);
 
-	m_secondSurfaceButton = new RectTexButton (coorX, coorY - m_heightSurface * relHeightScroll / 2, width, m_heightSurface * (1 - relHeightScroll / 2),
+	m_secondSurfaceButton = new RectTexButton (coorX, coorY - railLength * m_relLengthSlider / 2, width,
+											   railLength * (1 - m_relLengthSlider / 2),
 											   def_texSurfaceButton);
 
 	WinMgr::AddChildWidget (m_scrollSlider);
@@ -47,7 +47,6 @@ void ScrollerVertical::InitDefTex_FirstButtonArrow (const char *wait, const char
 	def_texFirstButtonArrow.m_focused = mgr->GetTexture (focused);
 	def_texFirstButtonArrow.m_pressed = mgr->GetTexture (clicked);
 }
-
 void ScrollerVertical::InitDefTex_SecondButtonArrow (const char *wait, const char *focused, const char *clicked)
 {
 	auto mgr = ResMgr::GetResMgr ();
@@ -55,7 +54,6 @@ void ScrollerVertical::InitDefTex_SecondButtonArrow (const char *wait, const cha
 	def_texSecondButtonArrow.m_focused = mgr->GetTexture (focused);
 	def_texSecondButtonArrow.m_pressed = mgr->GetTexture (clicked);
 }
-
 void ScrollerVertical::InitDefTex_ScrollSlider (const char *wait, const char *focused, const char *clicked)
 {
 	auto mgr = ResMgr::GetResMgr ();
@@ -63,7 +61,6 @@ void ScrollerVertical::InitDefTex_ScrollSlider (const char *wait, const char *fo
 	def_texScrollSlider.m_focused = mgr->GetTexture (focused);
 	def_texScrollSlider.m_pressed = mgr->GetTexture (clicked);
 }
-
 void ScrollerVertical::InitDefTex_SurfaceButton (const char *wait, const char *focused, const char *clicked)
 {
 	auto mgr = ResMgr::GetResMgr ();
@@ -74,6 +71,8 @@ void ScrollerVertical::InitDefTex_SurfaceButton (const char *wait, const char *f
 
 void ScrollerVertical::SetSlider (float state)
 {
+	const float eps = 1e-5;
+
 	if (state <= -0.0001)
 	{
 		state = 0.0f;
@@ -83,14 +82,14 @@ void ScrollerVertical::SetSlider (float state)
 		state = 1.0f;
 	}
 
-	//if (state <=     m_relHeightSlider / 2) state =        m_relHeightSlider / 2;
-	//if (state >= 1 - m_relHeightSlider / 2) state = 1.0f - m_relHeightSlider / 2;
+	//if (state <=     m_relLengthSlider / 2) state =        m_relLengthSlider / 2;
+	//if (state >= 1 - m_relLengthSlider / 2) state = 1.0f - m_relLengthSlider / 2;
 
 	float saveState = state;
-	state = m_relHeightSlider / 2 + (1 - m_relHeightSlider) * state;
-	float stateOld = m_relHeightSlider / 2 + (1 - m_relHeightSlider) * m_stateSlider;
+	state = m_relLengthSlider / 2 + (1 - m_relLengthSlider) * state;
+	float stateOld = m_relLengthSlider / 2 + (1 - m_relLengthSlider) * m_stateSlider;
 
-	float deltaY = 0.5 * m_heightSurface * ((double)state - stateOld);
+	float deltaY = 0.5 * (m_length - 2 * m_width) * ((double)state - stateOld);
 
 	m_firstSurfaceButton->ScaleUp (1.0f, state / stateOld, 1.0f);
 	m_firstSurfaceButton->Move (0.0f, -deltaY, 0.0f);
@@ -105,7 +104,7 @@ void ScrollerVertical::SetSlider (float state)
 
 void ScrollerVertical::MoveSlider (float deltaState)
 {
-	SetSlider (m_stateSlider + deltaState / (m_heightSurface * (1 - m_relHeightSlider)));
+	SetSlider (m_stateSlider + deltaState / ((m_length - 2 * m_width) * (1 - m_relLengthSlider)));
 }
 
 float ScrollerVertical::GetStateSlider ()
@@ -122,39 +121,26 @@ void ScrollerVertical::Update ()
 {
 	const float m_deltaX = 0.1;
 
-	if (m_scrollSlider->IsClicked ())
+	if (m_scrollSlider->IsPressed () || m_mousePressedAndScrolled)
 	{
-		printf ("------------------------------\n");
-		MoveSlider (m_deltaMousePosition.x);
+		m_mousePressedAndScrolled = true;
+		m_scrollSlider->SetStateFocused ();
+		m_scrollSlider->SetStatePressed ();
+
+		MoveSlider (-m_deltaMousePosition);
 	}
+	m_deltaMousePosition = 0.0f;
 
 	if (m_firstButtonArrow->IsClicked ())    SetSlider (m_stateSlider - m_deltaX);
 	if (m_secondButtonArrow->IsClicked ())   SetSlider (m_stateSlider + m_deltaX);
 	if (m_firstSurfaceButton->IsClicked ())  SetSlider (m_stateSlider - m_deltaX);
 	if (m_secondSurfaceButton->IsClicked ()) SetSlider (m_stateSlider + m_deltaX);
 
-	m_prevScrollClicked = m_scrollSlider->GetCurrentState () == BUTTONSTATE::PRESSED;
-
 	WinMgr::Update ();
 }
 
 void ScrollerVertical::HandleNews (News news)
 {
-	if (news.m_idSender == (uint16_t) SENDER_NEWS::WINAPIWNDPROC)
-	{
-		if (news.m_news == NEWS::MOUSEMOVE)
-		{
-			m_deltaMousePosition.x = m_prevMousePosition.x - news.m_mousePos.x;
-			m_deltaMousePosition.y = m_prevMousePosition.y - news.m_mousePos.y;
-
-			//if (fabs (m_deltaMousePosition.x) > 0.001 && fabs (m_deltaMousePosition.x) > 0.001)
-				//printf ("%f %f\n", m_deltaMousePosition.x, m_deltaMousePosition.y);
-
-			m_prevMousePosition.x = news.m_mousePos.x;
-			m_prevMousePosition.y = news.m_mousePos.y;
-		}
-	}
-
 	m_firstButtonArrow->HandleNews (news);
 	m_secondButtonArrow->HandleNews (news);
 	m_scrollSlider->HandleNews (news);
@@ -168,6 +154,23 @@ void ScrollerVertical::HandleNews (News news)
 	{
 		m_firstSurfaceButton->SetStateWait ();
 		m_secondSurfaceButton->SetStateWait ();
+	}
+	
+	m_deltaMousePosition = 0.0f;
+	if (news.m_idSender == (uint16_t) SENDER_NEWS::WINAPIWNDPROC)
+	{
+		switch (news.m_news)
+		{
+		case NEWS::MOUSEMOVE:
+			{
+				m_deltaMousePosition = news.m_mousePos.y - m_prevMousePosition;
+				m_prevMousePosition  = news.m_mousePos.y;
+			} break;
+		case NEWS::LBUTTONUP:
+			{
+				m_mousePressedAndScrolled = false;
+			} break;
+		}
 	}
 
 	//WinMgr::HandleNews (news);
