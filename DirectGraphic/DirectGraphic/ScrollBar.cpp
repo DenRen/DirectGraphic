@@ -53,7 +53,7 @@ void ScrollBar::HandleNews (News news)
 			if (news.m_idSender == m_bar[i]->GetID () &&
 				news.m_news == NEWS::LBUTTONDBLCLK)
 			{
-				std::string *nameFile = &m_names[m_numFirst + i];
+				std::wstring *nameFile = &m_names[m_numFirst + i];
 
 				News news (GetID ());
 				news.m_news = NEWS::SELECT_ITEM_BAR;
@@ -79,7 +79,7 @@ void ScrollBar::Update ()
 	}
 }
 
-void ScrollBar::Update (std::vector <std::string> names)
+void ScrollBar::Update (std::vector <std::wstring> names)
 {
 	Clear ();
 
@@ -118,5 +118,4 @@ void ScrollBar::Clear ()
 
 	m_bar.clear ();
 	m_names.clear ();
-	//m_idItemBar.clear ();
 }

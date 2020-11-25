@@ -18,7 +18,7 @@ public:
 	void Update ();
 	void HandleNews (News news);
 
-	void Update (std::vector <std::string> names);
+	void Update (std::vector <std::wstring> names);
 	void Clear ();
 
 private:
@@ -31,7 +31,7 @@ private:
 	float m_height = 0.0f;
 	float m_widthScroll = 0.0f;
 
-	std::vector <std::string> m_names;
+	std::vector <std::wstring> m_names;
 
 	ScrollerVertical *m_scroller;
 	RectTex *m_backGround;

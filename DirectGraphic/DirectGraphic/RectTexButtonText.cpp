@@ -3,11 +3,11 @@
 BitmapFont *RectTexButtonText::def_font = new BitmapFont ();
 
 RectTexButtonText::RectTexButtonText (float coorX, float coorY, float width, float height,
-									  const char *text) :
+									  const wchar_t *text) :
 	RectTexButton (coorX, coorY, width, height),
 	m_text (new Text (def_font))
 {
-	m_text->Init (CharToWChar (const_cast <char *> (text)));
+	m_text->Init (const_cast <wchar_t *> (text));
 }
 
 bool RectTexButtonText::InitDefFont (const char *pathFontFile, const char *pathFontTex)

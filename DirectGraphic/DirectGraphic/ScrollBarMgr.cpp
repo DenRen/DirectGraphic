@@ -31,8 +31,10 @@ void ScrollBarMgr::HandleNews (News news)
 		{
 			if (news.m_news == NEWS::SELECT_ITEM_BAR)
 			{
-				std::string nameFile = *((std::string *) news.m_args);
+				std::wstring nameFile = *((std::wstring *) news.m_args);
 				m_curPath.append (nameFile);
+				
+				auto names = GetNameFiles (m_curPath);
 
 				m_scrollBar->Update (GetNameFiles (m_curPath));
 			}
@@ -42,15 +44,15 @@ void ScrollBarMgr::HandleNews (News news)
 	m_scrollBar->HandleNews (news);
 }
 
-std::vector <std::string> ScrollBarMgr::GetNameFiles (const fs::path &path)
+std::vector <std::wstring> ScrollBarMgr::GetNameFiles (const fs::path &path)
 {
-	std::vector <std::string> files;
+	std::vector <std::wstring> files;
 
 	fs::directory_iterator begin (path);
 	fs::directory_iterator end;
 
 	for (; begin != end; begin++)
-		files.push_back (begin->path ().filename ().u8string ());
+		files.push_back (begin->path ().filename ());
 
 	return files;
 }
