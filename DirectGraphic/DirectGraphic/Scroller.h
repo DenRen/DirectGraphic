@@ -11,6 +11,9 @@ public:
 	Scroller (float coorX, float coorY,
 			  float lenght, float width, float relLengthSlider);
 
+	float GetDeltaPositionSlider ();
+	bool SliderIsPressed ();
+
 protected:
 
 	float m_stateSlider;

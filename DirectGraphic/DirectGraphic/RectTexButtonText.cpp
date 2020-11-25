@@ -22,10 +22,13 @@ bool RectTexButtonText::InitDefFont (const char *pathFontFile, const char *pathF
 
 void RectTexButtonText::Draw ()
 {
-	RectTexButton::Draw ();
-	auto rect = RectTexButton::GetRectFigure ();
+	if (Widget::IsActive ())
+	{
+		RectTexButton::Draw ();
+		auto rect = RectTexButton::GetRectFigure ();
 
-	m_text->Render (0, 0, 0, rect.m_coorX + rect.m_width * 0.1, rect.m_coorY - rect.m_height / 6 );
+		m_text->Render (0, 0, 0, rect.m_coorX + rect.m_width * 0.1, rect.m_coorY - rect.m_height / 6);
+	}
 }
 
 void RectTexButtonText::Update ()

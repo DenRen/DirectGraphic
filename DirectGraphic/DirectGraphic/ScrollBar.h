@@ -23,6 +23,7 @@ public:
 
 private:
 
+	int m_size;
 	int m_capacity;
 	int m_numFirst;
 	int m_numActive;
@@ -30,6 +31,8 @@ private:
 	float m_width = 0.0f;
 	float m_height = 0.0f;
 	float m_widthScroll = 0.0f;
+
+	float m_prevSliderPosition = 0.0f;
 
 	std::vector <std::wstring> m_names;
 

@@ -23,3 +23,13 @@ Scroller::Scroller (float coorX, float coorY,
 					float lenght, float width, float relLengthSlider) :
 	Scroller (WinCoor (coorX, coorY), lenght, width, relLengthSlider)
 {}
+
+float Scroller::GetDeltaPositionSlider ()
+{
+	return m_scrollSlider->IsPressed () * m_deltaMousePosition;
+}
+
+bool Scroller::SliderIsPressed ()
+{
+	return m_scrollSlider->IsPressed ();
+}

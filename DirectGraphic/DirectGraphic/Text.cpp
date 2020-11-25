@@ -69,7 +69,7 @@ bool Text::m_InitBuffers (const std::wstring &text, int screenWidth, int screenH
 void Text::Render (float r, float g, float b, float x, float y)
 {
 	m_RenderBuffers ();
-	m_font->Render (m_numindex, r, g, b, x + m_deltaX, -y + m_deltaY);
+	m_font->Render (m_numindex, r, g, b, x + m_deltaX, -y - m_deltaY * 9.0 / 320.0);
 }
 
 void Text::Close ()
@@ -80,8 +80,8 @@ void Text::Close ()
 
 void Text::Move (float deltaX, float deltaY)
 {
-	m_deltaX += deltaX;
-	m_deltaY += deltaY;
+	m_deltaX += deltaX * WndCnf::lenX / WndCnf::WIDTH;
+	m_deltaY += deltaY * WndCnf::lenY / WndCnf::HEIGHT;
 }
 
 void Text::m_RenderBuffers ()

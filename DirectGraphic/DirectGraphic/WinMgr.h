@@ -44,7 +44,6 @@ public:
 
 	void AddWinMgrCoor (float &coorX, float &coorY);
 
-
 private:
 	std::vector <Widget *> m_childWidgets;
 

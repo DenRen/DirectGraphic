@@ -33,8 +33,6 @@ void ScrollBarMgr::HandleNews (News news)
 			{
 				std::wstring nameFile = *((std::wstring *) news.m_args);
 				m_curPath.append (nameFile);
-				
-				auto names = GetNameFiles (m_curPath);
 
 				m_scrollBar->Update (GetNameFiles (m_curPath));
 			}
