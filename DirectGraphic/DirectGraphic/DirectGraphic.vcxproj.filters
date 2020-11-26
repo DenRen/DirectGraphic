@@ -132,6 +132,9 @@
     <ClCompile Include="Rectangle.cpp">
       <Filter>Исходные файлы\DX11FW</Filter>
     </ClCompile>
+    <ClCompile Include="Rect.cpp">
+      <Filter>Исходные файлы\WinLib</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppMgr.h">
@@ -238,6 +241,9 @@
     </ClInclude>
     <ClInclude Include="Rectangle.h">
       <Filter>Файлы заголовков\DX11FW</Filter>
+    </ClInclude>
+    <ClInclude Include="Rect.h">
+      <Filter>Файлы заголовков\WinLib</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

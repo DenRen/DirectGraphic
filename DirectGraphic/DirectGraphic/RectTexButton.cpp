@@ -59,11 +59,6 @@ void RectTexButton::Update ()
 
 void RectTexButton::HandleNews (News news)
 {
-	// Âîîáùå çäåñü ìîæíî ñäåëàòü îáùèé ñòàíäàðò äëÿ ëþáîé êíîïêè
-	// Ïðèõîäèò news, çàïîìíèàåì íåîáõîäèìûå äàííûå è âûñòàâëÿåì ðàäíûå ôëàãè.
-	// Çàòåì â Update () ýòè ôëàãè è äàííûå îáðàáàòûâàåì. Èìåííî òàì îòïðàâëÿåì íîâûå news
-	// è óñòàíàâëèâàåì íîâûå òåêñòóðû, íàïðèìåð. Íî ýòî îáîáùåíèå äëÿ äëÿ îáùèõ ìåòîäîâ.
-
 	if (!Widget::IsActive ()) return;
 
 	if (news.m_idSender == (uint16_t) SENDER_NEWS::WINAPIWNDPROC)

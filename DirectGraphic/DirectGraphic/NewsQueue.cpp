@@ -10,191 +10,193 @@ int NewsQueue::m_capacity = 0;
 
 NewsQueue::NewsQueue (int capacity)
 {
-	if (!Initialize (capacity))
-	{
-		RETURN_THROW;
-	}
+    if (!Initialize (capacity))
+    {
+        RETURN_THROW;
+    }
 }
 
 NewsQueue::~NewsQueue ()
 {
-	Release ();
+    Release ();
 }
 
 void NewsQueue::SetCapacity (int capacity)
 {
-	m_capacity = capacity;
+    m_capacity = capacity;
 }
 
 NewsQueue *NewsQueue::GetNewsQueue ()
 {
-	static NewsQueue newsQueue (m_capacity);
-	
-	return &newsQueue;
+    static NewsQueue newsQueue (m_capacity);
+    
+    return &newsQueue;
 }
 
 int NewsQueue::GetSize ()
 {
-	return m_tail - m_begin;
+    return m_tail - m_begin;
 }
 
 void NewsQueue::GetWinAPINews (UINT msg, WPARAM wParam, LPARAM lParam)
 {
-	#define ADDNEWS(msg)			\
-	case WM_##msg:					\
-	{								\
-		news.m_news = NEWS::msg;	\
-		AddNews (news);				\
-	} break
+    #define ADDNEWS(msg)			\
+    case WM_##msg:					\
+    {								\
+        news.m_news = NEWS::msg;	\
+        AddNews (news);				\
+    } break
 
-	if (m_capacity == 0)
-	{
-		return;
-	}
+    if (m_capacity == 0)
+    {
+        return;
+    }
 
-	News news = {};
-	news.m_idSender = (uint16_t) SENDER_NEWS::WINAPIWNDPROC;
+    News news = {};
+    news.m_idSender = (uint16_t) SENDER_NEWS::WINAPIWNDPROC;
 
-	if (msg >= WM_MOUSEFIRST && msg <= WM_MOUSELAST)
-	{
-		WndCnf::ConvertMouseCoor (lParam, news.m_mousePos.x, news.m_mousePos.y);
+    if (msg >= WM_MOUSEFIRST && msg <= WM_MOUSELAST)
+    {
+        WndCnf::ConvertMouseCoor (lParam, news.m_mousePos.x, news.m_mousePos.y);
 
-		switch (msg) {
-			case WM_MOUSEMOVE:
-			{
-				InputCoorMouse::SetPosition (news.m_mousePos);
-			} break;
+        news.m_xarg = (void *) wParam;
 
-			ADDNEWS (LBUTTONDOWN);
-			ADDNEWS (LBUTTONUP);
-			ADDNEWS (LBUTTONDBLCLK);
-			ADDNEWS (RBUTTONDOWN);
-			ADDNEWS (RBUTTONUP);
-			ADDNEWS (RBUTTONDBLCLK);
+        switch (msg) {
+            case WM_MOUSEMOVE:
+            {
+                InputCoorMouse::SetPosition (news.m_mousePos);
+            } break;
 
-			ADDNEWS (MBUTTONDOWN);
-			ADDNEWS (MBUTTONUP);
-			ADDNEWS (MBUTTONDBLCLK);
+            ADDNEWS (LBUTTONDOWN);
+            ADDNEWS (LBUTTONUP);
+            ADDNEWS (LBUTTONDBLCLK);
+            ADDNEWS (RBUTTONDOWN);
+            ADDNEWS (RBUTTONUP);
+            ADDNEWS (RBUTTONDBLCLK);
 
-			ADDNEWS (XBUTTONDOWN);
-			ADDNEWS (XBUTTONUP);
-			ADDNEWS (XBUTTONDBLCLK);
+            ADDNEWS (MBUTTONDOWN);
+            ADDNEWS (MBUTTONUP);
+            ADDNEWS (MBUTTONDBLCLK);
 
-			ADDNEWS (MOUSEHWHEEL);
-		}
-	}
+            ADDNEWS (XBUTTONDOWN);
+            ADDNEWS (XBUTTONUP);
+            ADDNEWS (XBUTTONDBLCLK);
 
-	#undef ADDNEWS
+            ADDNEWS (MOUSEHWHEEL);
+        }
+    }
+
+    #undef ADDNEWS
 }
 
 
 void NewsQueue::AddNews (const News &news)
 {
-	SetReadyForAdd ();
+    SetReadyForAdd ();
 
-	m_buffer[++m_tail] = news;
+    m_buffer[++m_tail] = news;
 }
 
 News NewsQueue::GetNews ()
 {
-	MYASSERT (m_begin + 1 <= m_tail);
+    MYASSERT (m_begin + 1 <= m_tail);
 
-	if (m_begin == m_tail)
-	{
-		// Empty buffer !!!
-		RETURN_THROW;
-	}
+    if (m_begin == m_tail)
+    {
+        // Empty buffer !!!
+        RETURN_THROW;
+    }
 
-	return m_buffer[++m_begin];
+    return m_buffer[++m_begin];
 }
 
 void NewsQueue::Dump ()
 {
-	for (int i = m_begin + 1; i <= m_tail; i++)
-	{
-		News news = m_buffer[i];
-		printf ("Sender: %d\t-> %d\n", news.m_idSender, news.m_news);
-	}
+    for (int i = m_begin + 1; i <= m_tail; i++)
+    {
+        News news = m_buffer[i];
+        printf ("Sender: %d\t-> %d\n", news.m_idSender, news.m_news);
+    }
 }
 
 NewsQueue &NewsQueue::operator += (const News &news)
 {
-	AddNews (news);
+    AddNews (news);
 
-	return *this;
+    return *this;
 }
 
 bool NewsQueue::Initialize (int capacity)
 {
-	MYASSERT (capacity > 0);
+    MYASSERT (capacity > 0);
 
-	if (m_buffer != nullptr)
-	{
-		Release ();
-	}
+    if (m_buffer != nullptr)
+    {
+        Release ();
+    }
 
-	m_buffer = (News *) calloc (capacity, sizeof (News));
-	if (m_buffer == nullptr)
-	{
-		RETURN_FALSE;
-	}
+    m_buffer = (News *) calloc (capacity, sizeof (News));
+    if (m_buffer == nullptr)
+    {
+        RETURN_FALSE;
+    }
 
-	m_begin = -1;
-	m_tail = -1;
+    m_begin = -1;
+    m_tail = -1;
 
-	m_capacity = capacity;
+    m_capacity = capacity;
 
-	return true;
+    return true;
 }
 
 void NewsQueue::Release ()
 {
-	free (m_buffer);
+    free (m_buffer);
 }
 
 void NewsQueue::SetReadyForAdd ()
 {
-	MYASSERT (m_tail <= m_capacity);
-	MYASSERT (m_begin >= -1);
+    MYASSERT (m_tail <= m_capacity);
+    MYASSERT (m_begin >= -1);
 
-	if (m_begin == m_tail && m_begin != 0)
-	{
-		m_begin = -1;
-		m_tail = -1;
+    if (m_begin == m_tail && m_begin != 0)
+    {
+        m_begin = -1;
+        m_tail = -1;
 
-		return;
-	}
+        return;
+    }
 
-	if (m_tail == m_capacity - 1)
-	{
-		if (m_begin != -1)
-		{
-			memcpy (m_buffer, &m_buffer[m_begin + 1], m_tail - m_begin);
-			m_tail = m_begin + 1;
-			m_begin = -1;
-		}
-		else
-		{
-			// Bufferr overfulled!
-			RETURN_THROW;
-		}
-	}
+    if (m_tail == m_capacity - 1)
+    {
+        if (m_begin != -1)
+        {
+            memcpy (m_buffer, &m_buffer[m_begin + 1], m_tail - m_begin);
+            m_tail = m_begin + 1;
+            m_begin = -1;
+        }
+        else
+        {
+            // Bufferr overfulled!
+            RETURN_THROW;
+        }
+    }
 }
 
 News::News () :
-	News (0, (NEWS) 0, nullptr)
+    News (0, (NEWS) 0, nullptr)
 {}
 
 News::News (uint16_t idSender) :
-	News (idSender, (NEWS) 0, nullptr)
+    News (idSender, (NEWS) 0, nullptr)
 {}
 
 News::News (uint16_t idSender, NEWS news) :
-	News (idSender, news, nullptr)
+    News (idSender, news, nullptr)
 {}
 
 News::News (uint16_t idSender, NEWS news, void *args) :
-	m_idSender (idSender),
-	m_news (news),
-	m_args (args)
+    m_idSender (idSender),
+    m_news (news),
+    m_args (args)
 {}

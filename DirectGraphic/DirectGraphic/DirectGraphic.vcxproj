@@ -160,6 +160,7 @@
     <ClCompile Include="InputDX.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NewsQueue.cpp" />
+    <ClCompile Include="Rect.cpp" />
     <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="RectTexButton.cpp" />
     <ClCompile Include="RectTexButtonText.cpp" />
@@ -195,6 +196,7 @@
     <ClInclude Include="InputDX.h" />
     <ClInclude Include="InputLayout.h" />
     <ClInclude Include="NewsQueue.h" />
+    <ClInclude Include="Rect.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="RectTexButton.h" />
     <ClInclude Include="RectTexButtonText.h" />

@@ -141,6 +141,11 @@ LRESULT CALLBACK WndProc (HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)
 		{
 			printf ("LBUTTON DBL\n");
 		} break;
+	case WM_MOUSEWHEEL:
+		{
+			int x = LOWORD (wParam), y = HIWORD (wParam);
+			printf ("WM_MOUSEWHEEL %d %d\n", x, y);
+		} break;
 	default:
 		{
 			return DefWindowProc (hWnd, Msg, wParam, lParam);

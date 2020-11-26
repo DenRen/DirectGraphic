@@ -22,9 +22,14 @@ struct News
 
 	uint16_t m_idSender;
 	NEWS m_news;
-	union {
+	union
+	{
 		void *m_args;
 		MousePosition m_mousePos;
+	};
+	union
+	{
+		void *m_xarg;
 	};
 };
 

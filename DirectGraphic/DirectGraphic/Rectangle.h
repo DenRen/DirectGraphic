@@ -45,7 +45,6 @@ public:
 	RectFigure GetRectFigure ();
 
 private:
-
 	void InitializeVB (float coorX, float coorY, float width, float height);
 
 	RectFigure m_rectFigure;

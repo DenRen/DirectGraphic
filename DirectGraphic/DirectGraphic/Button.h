@@ -9,7 +9,6 @@ enum class BUTTONSTATE
 class Button : public Widget
 {
 public:
-
 	virtual void SetStateWait ();
 	virtual void SetStateFocused ();
 	virtual void SetStatePressed ();
