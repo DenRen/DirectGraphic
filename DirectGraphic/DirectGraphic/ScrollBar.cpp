@@ -1,5 +1,6 @@
-#include "ScrollBar.h"
+#include <iostream>
 
+#include "ScrollBar.h"
 #include <experimental/filesystem>
 
 namespace fs = std::experimental::filesystem;
@@ -48,12 +49,13 @@ void ScrollBar::HandleNews (News news)
 
 	if (news.m_idSender != (uint16_t) SENDER_NEWS::WINAPIWNDPROC)
 	{
-		for (int i = 0; i < m_size; i++)
+		for (int i = m_numFirst; i < m_size; i++)
 		{
 			if (news.m_idSender == m_bar[i]->GetID () &&
 				news.m_news == NEWS::LBUTTONDBLCLK)
 			{
-				std::wstring *nameFile = &m_names[m_numFirst + i];
+				std::wstring *nameFile = &m_names[i];
+				std::wcout << *nameFile << std::endl;
 
 				News news (GetID ());
 				news.m_news = NEWS::SELECT_ITEM_BAR;
@@ -65,6 +67,13 @@ void ScrollBar::HandleNews (News news)
 			}
 		}
 	}
+}
+
+bool IsZero (float x)
+{
+	const float eps = 1e-3;
+
+	return x < eps && x > -eps;
 }
 
 void ScrollBar::Update ()
@@ -79,34 +88,40 @@ void ScrollBar::Update ()
 
 	if (m_capacity < m_size)
 	{
-		float curSliderState = m_scroller->GetStateSlider ();
-		float deltaPositionScrool = curSliderState - m_prevSliderPosition;
-		m_prevSliderPosition = curSliderState;
+		const float eps = 1e-3;
+		float curSliderState = (1+eps)*m_scroller->GetStateSlider ();
+		float deltaPositionSlider = (1+eps)*(curSliderState - m_prevSliderPosition) *
+									((double) m_size - m_capacity);
 
-		deltaPositionScrool *= ((float) m_size - m_capacity) / m_capacity;
-
-		int size = m_bar.size ();
-		RectTexButtonText *item = nullptr;
-
-		float heightItem = m_height / m_capacity;
-		float coorY = 0.0f;
-		float coorParentY = 0.0f, coorParentX = 0.0f;
-		WinMgr::AddWinMgrCoor (coorParentX, coorParentY);
-		while (size--)
+		if (fabs (deltaPositionSlider) >= 1)
 		{
-			item = m_bar[size];
-			
-			item->Move (0.0, deltaPositionScrool);
+			int numDelta = deltaPositionSlider;
+			m_prevSliderPosition = curSliderState - ((double) deltaPositionSlider - numDelta) /
+													((double) m_size - m_capacity);
 
-			coorY = item->GetRectFigure ().m_coorY;
-			if (coorY > coorParentY || coorParentY - m_height + heightItem > coorY)
+			int size = m_bar.size ();
+			RectTexButtonText *item = nullptr;
+
+			float heightItem = m_height / m_capacity;
+			float coorY = 0.0f;
+			float coorParentY = 0.0f, coorParentX = 0.0f;
+			WinMgr::AddWinMgrCoor (coorParentX, coorParentY);
+			while (size--)
 			{
-				item->Diactivate ();
-			}
-			else
-			{
-				m_numFirst = size;
-				item->Activate ();
+				item = m_bar[size];
+
+				item->Move (0.0, heightItem * numDelta);
+
+				coorY = item->GetRectFigure ().m_coorY;
+				if (coorY > coorParentY + eps || coorParentY - m_height + heightItem > coorY + eps)
+				{
+					item->Diactivate ();
+				}
+				else
+				{
+					m_numFirst = size;
+					item->Activate ();
+				}
 			}
 		}
 	}

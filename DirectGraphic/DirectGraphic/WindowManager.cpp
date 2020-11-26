@@ -77,8 +77,8 @@ bool WindowManager::Initialize ()
 
 	// -------------------------------------------------------------------------------------------------
 
-	auto scrollBarMgr = new ScrollBarMgr (-0.4, 0.5, 0.8, 1.0,
-										   0.1, 0.3, 10, fs::current_path ());
+	auto scrollBarMgr = new ScrollBarMgr (-0.4, 0.4, 0.7, 0.8,
+										   0.08, 0.3, 14, fs::current_path ());
 
 	WinMgr::AddChildWidget (scrollBarMgr);
 

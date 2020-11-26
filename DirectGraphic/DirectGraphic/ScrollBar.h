@@ -32,6 +32,7 @@ private:
 	float m_height = 0.0f;
 	float m_widthScroll = 0.0f;
 
+	float m_deltaPositionSlider = 0.0f;
 	float m_prevSliderPosition = 0.0f;
 
 	std::vector <std::wstring> m_names;
