@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Shape.h"
+#include "RectFigure.h"
 
 // Default origin: left, up
 
@@ -8,13 +9,12 @@ class RectShape : public Shape
 {
 public:
 	RectShape (float coorX, float coorY, float width, float height);
-	bool IsContain (float coorX, float coorY);
+	bool IsContain (float coorX, float coorY) const;
 	void Move (float deltaX, float deltaY);
 
+	RectFigure GetRectFigure () const;
+
 private:
-	float m_coorX;
-	float m_coorY;
-	float m_width;
-	float m_height
+	RectFigure m_rect;
 };
 

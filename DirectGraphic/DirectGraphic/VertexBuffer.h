@@ -6,7 +6,6 @@
 #include "Shader.h"
 #include "DebugFunc.h"
 #include "AddFunc.h"
-#include "InputLayout.h"
 #include "Structure_Data.h"
 
 template <typename VertexT, typename IndexT>

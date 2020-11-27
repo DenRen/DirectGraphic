@@ -3,8 +3,6 @@
 #include <D3DX11async.h>
 #include <fstream>
 
-#include "InputLayout.h"
-
 HRESULT CompileShaderFromFile (LPCSTR szFileName, LPCSTR szEntryPoint, LPCSTR szShaderModel,
 							   ID3DBlob **ppBlobOut);
 class VertexShader

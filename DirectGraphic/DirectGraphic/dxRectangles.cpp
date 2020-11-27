@@ -28,6 +28,7 @@ dxRectTex::dxRectTex (float coorX, float coorY, float width, float height,
 	InitializeVB ();
 
 	ScaleUp (width, height);
+	Move (coorX, coorY);
 }
 
 void dxRectTex::Draw ()

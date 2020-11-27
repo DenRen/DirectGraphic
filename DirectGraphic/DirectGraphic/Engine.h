@@ -4,7 +4,7 @@
 #include "Graphics.h"
 #include "Shader.h"
 #include "Texture.h"
-#include "Rectangle.h"
+#include "Rectangles.h"
 #include "Camera.h"
 #include "Structure_Data.h"
 #include "InputDX.h"

@@ -91,13 +91,13 @@ void ScrollerVertical::SetSlider (float state)
 
 	float deltaY = 0.5 * (m_length - 2 * m_width) * ((double)state - stateOld);
 
-	m_firstSurfaceButton->ScaleUp (1.0f, state / stateOld, 1.0f);
-	m_firstSurfaceButton->Move (0.0f, -deltaY, 0.0f);
+	m_firstSurfaceButton->ScaleUp (1.0f, state / stateOld);
+	m_firstSurfaceButton->Move (0.0f, -deltaY);
 
-	m_secondSurfaceButton->ScaleUp (1.0f, 1 / ((1.0f - stateOld) / (1.0f - state)), 1.0f);
-	m_secondSurfaceButton->Move (0.0f, -deltaY, 0.0f);
+	m_secondSurfaceButton->ScaleUp (1.0f, 1 / ((1.0f - stateOld) / (1.0f - state)));
+	m_secondSurfaceButton->Move (0.0f, -deltaY);
 
-	m_scrollSlider->Move (0.0f, -2 * deltaY, 0.0f);
+	m_scrollSlider->Move (0.0f, -2 * deltaY);
 
 	m_stateSlider = saveState;
 }

@@ -1,6 +1,6 @@
 #pragma once
 #include "Button.h"
-#include "Rectangle.h"
+#include "Rectangles.h"
 
 struct TextureButton
 {
@@ -31,6 +31,8 @@ public:
 	void Draw ();
 	void Update ();
 	void HandleNews (News news);
+
+	bool IsContain (float coorX, float coorY);
 
 private:
 

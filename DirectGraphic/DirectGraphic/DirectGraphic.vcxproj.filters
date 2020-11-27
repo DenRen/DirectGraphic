@@ -55,6 +55,36 @@
     <Filter Include="Файлы заголовков\Application">
       <UniqueIdentifier>{283d5aac-7797-429f-9744-51f637aab03e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Файлы заголовков\DX11FW\Graphic">
+      <UniqueIdentifier>{14a3e104-1032-4944-88de-05331d7d2c56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\DX11FW\Graphic">
+      <UniqueIdentifier>{bbb5b352-34a5-42ba-af3b-9ea90c130b33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\DX11FW\Graphic\Shapes">
+      <UniqueIdentifier>{7fb1fd0f-0f0b-4823-ba9b-54eaaa54a9b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\DX11FW\Graphic\Shapes">
+      <UniqueIdentifier>{f2983973-457f-49f6-bde6-a5ff5e0e885c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\DX11FW\dxGraph">
+      <UniqueIdentifier>{af443531-22b0-4d64-93b8-76bf38bef822}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\DX11FW\Graphic\WrapGraphic">
+      <UniqueIdentifier>{ff50deaa-8307-42fd-80ca-be5569bec084}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\DX11FW\dxGraph">
+      <UniqueIdentifier>{d44ab0fb-29e2-47ce-8b1c-e9f29edd7826}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\DX11FW\Graphic\WrapGraphic">
+      <UniqueIdentifier>{fb2838a2-7f6a-42df-9de6-1b6595a39ab8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\DX11FW\Graphic\Figures">
+      <UniqueIdentifier>{693e8329-b1c8-4dbf-9ca7-d78f15419472}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\DX11FW\Graphic\Figures">
+      <UniqueIdentifier>{83683aa0-8e6a-4c38-88f3-83d6ed5cc78b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp">
@@ -105,12 +135,6 @@
     <ClCompile Include="WinMgr.cpp">
       <Filter>Исходные файлы\WinLib</Filter>
     </ClCompile>
-    <ClCompile Include="Rectangle.cpp">
-      <Filter>Исходные файлы\DX11FW</Filter>
-    </ClCompile>
-    <ClCompile Include="Rect.cpp">
-      <Filter>Исходные файлы\WinLib</Filter>
-    </ClCompile>
     <ClCompile Include="Engine.cpp">
       <Filter>Исходные файлы\DX11FW\Engines</Filter>
     </ClCompile>
@@ -159,63 +183,27 @@
     <ClCompile Include="Config.cpp">
       <Filter>Исходные файлы\Application</Filter>
     </ClCompile>
+    <ClCompile Include="Shape.cpp">
+      <Filter>Исходные файлы\DX11FW\Graphic\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="RectShape.cpp">
+      <Filter>Исходные файлы\DX11FW\Graphic\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="Rectangles.cpp">
+      <Filter>Исходные файлы\DX11FW\Graphic\WrapGraphic</Filter>
+    </ClCompile>
+    <ClCompile Include="dxRectangles.cpp">
+      <Filter>Исходные файлы\DX11FW\dxGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="RectFigure.cpp">
+      <Filter>Исходные файлы\DX11FW\Graphic\Figures</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AppMgr.h">
-      <Filter>Файлы заголовков\DX11FW</Filter>
-    </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Файлы заголовков\DX11FW</Filter>
     </ClInclude>
-    <ClInclude Include="Config.h">
-      <Filter>Файлы заголовков\DX11FW</Filter>
-    </ClInclude>
-    <ClInclude Include="de_timer.h">
-      <Filter>Файлы заголовков\DX11FW</Filter>
-    </ClInclude>
-    <ClInclude Include="DXManager.h">
-      <Filter>Файлы заголовков\DX11FW</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine.h">
-      <Filter>Файлы заголовков\DX11FW</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics.h">
-      <Filter>Файлы заголовков\DX11FW</Filter>
-    </ClInclude>
     <ClInclude Include="InputDX.h">
-      <Filter>Файлы заголовков\DX11FW</Filter>
-    </ClInclude>
-    <ClInclude Include="InputLayout.h">
-      <Filter>Файлы заголовков\DX11FW</Filter>
-    </ClInclude>
-    <ClInclude Include="ResourceManager.h">
-      <Filter>Файлы заголовков\DX11FW</Filter>
-    </ClInclude>
-    <ClInclude Include="Shader.h">
-      <Filter>Файлы заголовков\DX11FW</Filter>
-    </ClInclude>
-    <ClInclude Include="Shaders.h">
-      <Filter>Файлы заголовков\DX11FW</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprite.h">
-      <Filter>Файлы заголовков\DX11FW</Filter>
-    </ClInclude>
-    <ClInclude Include="Structure_Data.h">
-      <Filter>Файлы заголовков\DX11FW</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>Файлы заголовков\DX11FW</Filter>
-    </ClInclude>
-    <ClInclude Include="VertexBuffer.h">
-      <Filter>Файлы заголовков\DX11FW</Filter>
-    </ClInclude>
-    <ClInclude Include="WinAPIManager.h">
-      <Filter>Файлы заголовков\DX11FW</Filter>
-    </ClInclude>
-    <ClInclude Include="BitmapFont.h">
-      <Filter>Файлы заголовков\DX11FW</Filter>
-    </ClInclude>
-    <ClInclude Include="Text.h">
       <Filter>Файлы заголовков\DX11FW</Filter>
     </ClInclude>
     <ClInclude Include="AddFunc.h">
@@ -263,11 +251,68 @@
     <ClInclude Include="WinMgr.h">
       <Filter>Файлы заголовков\WinLib</Filter>
     </ClInclude>
-    <ClInclude Include="Rectangle.h">
-      <Filter>Файлы заголовков\DX11FW</Filter>
+    <ClInclude Include="Config.h">
+      <Filter>Файлы заголовков\Application</Filter>
     </ClInclude>
-    <ClInclude Include="Rect.h">
-      <Filter>Файлы заголовков\WinLib</Filter>
+    <ClInclude Include="AppMgr.h">
+      <Filter>Файлы заголовков\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexBuffer.h">
+      <Filter>Файлы заголовков\DX11FW\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Файлы заголовков\DX11FW\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Файлы заголовков\DX11FW\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Shaders.h">
+      <Filter>Файлы заголовков\DX11FW\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Файлы заголовков\DX11FW\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Файлы заголовков\DX11FW\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics.h">
+      <Filter>Файлы заголовков\DX11FW\Engines</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.h">
+      <Filter>Файлы заголовков\DX11FW\Engines</Filter>
+    </ClInclude>
+    <ClInclude Include="de_timer.h">
+      <Filter>Файлы заголовков\DX11FW\Engines</Filter>
+    </ClInclude>
+    <ClInclude Include="DXManager.h">
+      <Filter>Файлы заголовков\DX11FW\Engines</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>Файлы заголовков\DX11FW\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="BitmapFont.h">
+      <Filter>Файлы заголовков\DX11FW\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="Structure_Data.h">
+      <Filter>Файлы заголовков\DX11FW\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="WinAPIManager.h">
+      <Filter>Файлы заголовков\DX11FW\Engines</Filter>
+    </ClInclude>
+    <ClInclude Include="Shape.h">
+      <Filter>Файлы заголовков\DX11FW\Graphic\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="RectShape.h">
+      <Filter>Файлы заголовков\DX11FW\Graphic\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="Rectangles.h">
+      <Filter>Файлы заголовков\DX11FW\Graphic\WrapGraphic</Filter>
+    </ClInclude>
+    <ClInclude Include="dxRectangles.h">
+      <Filter>Файлы заголовков\DX11FW\dxGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="RectFigure.h">
+      <Filter>Файлы заголовков\DX11FW\Graphic\Figures</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

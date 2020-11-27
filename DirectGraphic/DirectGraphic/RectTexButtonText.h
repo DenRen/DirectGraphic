@@ -6,7 +6,6 @@
 class RectTexButtonText : public RectTexButton
 {
 public:
-
 	RectTexButtonText (float coorX, float coorY, float width, float height, const wchar_t *text);
 
 	static bool InitDefFont (const char *pathFontFile, const char *pathFontTex);

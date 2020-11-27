@@ -2,11 +2,6 @@
 #include "DXManager.h"
 #include "ResourceManager.h"
 
-Texture		 *RectTex::defTexture	  = nullptr;
-Shader		 *RectTex::defShader	  = nullptr;
-ID3D11Buffer *RectTex::defCBMatrixes  = nullptr;
-WVPMatrixes  *RectTex::defWVPMatrixes = nullptr;
-
 RectTex::RectTex (float coorX, float coorY, float width, float height) :
 	dxRectTex (coorX, coorY, width, height),
 	RectShape (coorX, coorY, width, height)

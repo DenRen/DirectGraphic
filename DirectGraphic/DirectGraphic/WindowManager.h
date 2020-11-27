@@ -1,6 +1,6 @@
 #pragma once
 #include "WinMgr.h"
-#include "Rectangle.h"
+#include "Rectangles.h"
 
 class WindowManager : public WinMgr
 {

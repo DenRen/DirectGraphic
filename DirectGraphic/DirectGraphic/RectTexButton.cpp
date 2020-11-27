@@ -92,9 +92,14 @@ void RectTexButton::HandleNews (News news)
 	}
 }
 
+bool RectTexButton::IsContain (float coorX, float coorY)
+{
+	return RectShape::IsContain (coorX, coorY);
+}
+
 bool RectTexButton::CheckContainCursor (MousePosition mousePosition)
 {
-	return RectTex::CheckContainCursor (mousePosition.x, mousePosition.y);
+	return RectTex::IsContain (mousePosition.x, mousePosition.y);
 }
 
 TextureButton::TextureButton () :
