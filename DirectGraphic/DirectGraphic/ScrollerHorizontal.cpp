@@ -32,11 +32,11 @@ ScrollerHorizontal::ScrollerHorizontal (float coorX, float coorY, float width, f
 	m_secondSurfaceButton = new RectTexButton (coorX + m_heightSurface * relWidthScroll / 2, coorY, m_heightSurface * (1 - relWidthScroll / 2), height,
 											   def_texSurfaceButton);
 
-	WinMgr::AddChildWidget (m_scrollSlider);
-	WinMgr::AddChildWidget (m_firstButtonArrow);
-	WinMgr::AddChildWidget (m_secondButtonArrow);
-	WinMgr::AddChildWidget (m_firstSurfaceButton);
-	WinMgr::AddChildWidget (m_secondSurfaceButton);
+	WidgetMgr::AddChildWidget (m_scrollSlider);
+	WidgetMgr::AddChildWidget (m_firstButtonArrow);
+	WidgetMgr::AddChildWidget (m_secondButtonArrow);
+	WidgetMgr::AddChildWidget (m_firstSurfaceButton);
+	WidgetMgr::AddChildWidget (m_secondSurfaceButton);
 }
 
 void ScrollerHorizontal::InitDefTex_FirstButtonArrow (const char *wait, const char *focused, const char *clicked)
@@ -114,7 +114,7 @@ float ScrollerHorizontal::GetStateSlider ()
 
 void ScrollerHorizontal::Draw ()
 {
-	WinMgr::Draw ();
+	WidgetMgr::Draw ();
 }
 
 void ScrollerHorizontal::Update ()
@@ -134,7 +134,7 @@ void ScrollerHorizontal::Update ()
 	
 	m_prevScrollClicked = m_scrollSlider->GetCurrentState () == BUTTONSTATE::PRESSED;
 
-	WinMgr::Update ();
+	WidgetMgr::Update ();
 }
 
 void ScrollerHorizontal::HandleNews (News news)
@@ -169,5 +169,5 @@ void ScrollerHorizontal::HandleNews (News news)
 		m_secondSurfaceButton->SetStateWait ();
 	}
 	
-	//WinMgr::HandleNews (news);
+	//WidgetMgr::HandleNews (news);
 }*/

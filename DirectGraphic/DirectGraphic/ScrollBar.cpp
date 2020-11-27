@@ -8,7 +8,7 @@ namespace fs = std::experimental::filesystem;
 ScrollBar::ScrollBar (float coorX, float coorY, float width, float height,
 					  float widthScroll, float relHeightSlider, int capacity) :
 	m_scroller (new ScrollerVertical (coorX, coorY, height, widthScroll, relHeightSlider)),
-	WinMgr (coorX, coorY),
+	WidgetMgr (coorX, coorY),
 	m_capacity (capacity),
 	m_numFirst (0),
 	m_numActive (0),
@@ -21,14 +21,13 @@ ScrollBar::ScrollBar (float coorX, float coorY, float width, float height,
 
 	m_backGround = new RectTex (coorX + m_widthScroll, coorY, width - m_widthScroll, height);
 
-	WinMgr::AddChildWidget (m_scroller);
+	WidgetMgr::AddChildWidget (m_backGround);
+	WidgetMgr::AddChildWidget (m_scroller);
 }
 
 void ScrollBar::Draw ()
 {
-	m_backGround->Draw ();
-
-	WinMgr::Draw ();
+	WidgetMgr::Draw ();
 
 	int size = m_bar.size ();
 	while (size--)
@@ -39,7 +38,7 @@ void ScrollBar::Draw ()
 
 void ScrollBar::HandleNews (News news)
 {
-	WinMgr::HandleNews (news);
+	WidgetMgr::HandleNews (news);
 	
 	int size = m_bar.size ();
 	while (size--)
@@ -78,7 +77,7 @@ bool IsZero (float x)
 
 void ScrollBar::Update ()
 {
-	WinMgr::Update ();
+	WidgetMgr::Update ();
 
 	int size = m_bar.size ();
 	while (size--)
@@ -105,14 +104,14 @@ void ScrollBar::Update ()
 			float heightItem = m_height / m_capacity;
 			float coorY = 0.0f;
 			float coorParentY = 0.0f, coorParentX = 0.0f;
-			WinMgr::AddWinMgrCoor (coorParentX, coorParentY);
+			WidgetMgr::AddWinMgrCoor (coorParentX, coorParentY);
 			while (size--)
 			{
 				item = m_bar[size];
 
 				item->Move (0.0, heightItem * numDelta);
 
-				coorY = item->GetRectFigure ().m_coorY;
+				coorY = item->GetRectFigure ().m_coor.y;
 				if (coorY > coorParentY + eps || coorParentY - m_height + heightItem > coorY + eps)
 				{
 					item->Diactivate ();

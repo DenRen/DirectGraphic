@@ -45,9 +45,9 @@ void dxRectTex::SetDefaultValue (Texture *texture, Shader *shader,
 	defWVPMatrixes = WVPMatrixes;
 }
 
-void dxRectTex::ScaleUp (float ScaleUpX, float ScaleUpY)
+void dxRectTex::ScaleUp (float scaleUpX, float scaleUpY)
 {
-	Sprite::ScaleUp (ScaleUpX, ScaleUpY, 1.0f);
+	Sprite::ScaleUp (scaleUpX, scaleUpY, 1.0f);
 }
 
 void dxRectTex::Move (float deltaX, float deltaY)

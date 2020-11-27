@@ -84,9 +84,11 @@ enum class NEWS
 	MBUTTONDOWN, MBUTTONUP, MBUTTONDBLCLK,
 	XBUTTONDOWN, XBUTTONUP, XBUTTONDBLCLK,
 
-	MOUSEHWHEEL,
+	MOUSEWHEEL,
 	MOUSELAST,
 	// Mouse >----------------------------->end
 
 	SELECT_ITEM_BAR
 };
+
+void printNews (News news);

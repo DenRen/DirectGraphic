@@ -132,9 +132,6 @@
     <ClCompile Include="WindowManager.cpp">
       <Filter>Исходные файлы\WinLib</Filter>
     </ClCompile>
-    <ClCompile Include="WinMgr.cpp">
-      <Filter>Исходные файлы\WinLib</Filter>
-    </ClCompile>
     <ClCompile Include="Engine.cpp">
       <Filter>Исходные файлы\DX11FW\Engines</Filter>
     </ClCompile>
@@ -198,6 +195,9 @@
     <ClCompile Include="RectFigure.cpp">
       <Filter>Исходные файлы\DX11FW\Graphic\Figures</Filter>
     </ClCompile>
+    <ClCompile Include="WidgetMgr.cpp">
+      <Filter>Исходные файлы\WinLib</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -246,9 +246,6 @@
       <Filter>Файлы заголовков\WinLib</Filter>
     </ClInclude>
     <ClInclude Include="WindowManager.h">
-      <Filter>Файлы заголовков\WinLib</Filter>
-    </ClInclude>
-    <ClInclude Include="WinMgr.h">
       <Filter>Файлы заголовков\WinLib</Filter>
     </ClInclude>
     <ClInclude Include="Config.h">
@@ -313,6 +310,9 @@
     </ClInclude>
     <ClInclude Include="RectFigure.h">
       <Filter>Файлы заголовков\DX11FW\Graphic\Figures</Filter>
+    </ClInclude>
+    <ClInclude Include="WidgetMgr.h">
+      <Filter>Файлы заголовков\WinLib</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

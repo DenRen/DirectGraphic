@@ -16,7 +16,7 @@ Scroller::Scroller (WinCoor coor, float lenght, float width, float relLengthSlid
 	m_prevMousePosition (0.0f),
 	m_deltaMousePosition (0.0f),
 
-	WinMgr (coor)
+	WidgetMgr (coor)
 {}
 
 Scroller::Scroller (float coorX, float coorY,

@@ -25,6 +25,7 @@ RectTexButton::RectTexButton (float coorX, float coorY, float width, float heigh
 RectTexButton::RectTexButton (float coorX, float coorY, float width, float height,
 							  TextureButton textureButton) :
 	RectTex (coorX, coorY, width, height),
+	Button (this),
 	m_textureButton (textureButton)
 {
 	m_texture = textureButton.m_wait;
@@ -40,6 +41,8 @@ void RectTexButton::Draw ()
 void RectTexButton::Update ()
 {
 	if (!Widget::IsActive ()) return;
+
+	RectTex::Update ();
 
 	switch (Button::GetCurrentState ())
 	{
@@ -59,37 +62,8 @@ void RectTexButton::Update ()
 
 void RectTexButton::HandleNews (News news)
 {
-	if (!Widget::IsActive ()) return;
-
-	if (news.m_idSender == (uint16_t) SENDER_NEWS::WINAPIWNDPROC)
-	{
-		if (news.m_news >= NEWS::MOUSEFIRST && news.m_news <= NEWS::MOUSELAST)
-		{
-			if (CheckContainCursor (news.m_mousePos))
-			{
-				Button::SetStateFocused ();
-
-				if (news.m_news == NEWS::LBUTTONDOWN)
-				{
-					Button::SetStatePressed ();
-				}
-				else if (news.m_news == NEWS::LBUTTONDBLCLK)
-				{
-					Button::SetStatePressed ();
-					Button::SetStateDoubleClick ();
-				}
-			}
-			else
-			{
-				Button::RemStateFocused ();
-			}
-
-			if (news.m_news == NEWS::LBUTTONUP)
-			{
-				Button::RemStatePressed ();
-			}
-		}
-	}
+	RectTex::HandleNews (news);
+	Button::HandleNews (news);
 }
 
 bool RectTexButton::IsContain (float coorX, float coorY)
@@ -99,7 +73,7 @@ bool RectTexButton::IsContain (float coorX, float coorY)
 
 bool RectTexButton::CheckContainCursor (MousePosition mousePosition)
 {
-	return RectTex::IsContain (mousePosition.x, mousePosition.y);
+	return RectTex::RectShape::IsContain (mousePosition.x, mousePosition.y);
 }
 
 TextureButton::TextureButton () :

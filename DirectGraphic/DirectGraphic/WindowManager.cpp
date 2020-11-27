@@ -9,7 +9,7 @@
 #include "ScrollBarMgr.h"
 
 WindowManager::WindowManager (WinCoor coor) :
-	WinMgr (coor),
+	WidgetMgr (coor),
 	m_newsQueue (NewsQueue::GetNewsQueue ()),
 	m_backGround (nullptr)
 {}
@@ -32,7 +32,7 @@ bool WindowManager::Initialize ()
 											  "Texture\\WidgetDarkTheme_Wait.png",
 											  "Texture\\WidgetDarkTheme_Focused.png",
 											  "Texture\\WidgetDarkTheme_Clicked.png");
-	WinMgr::AddChildWidget (buttonDarkTheme);
+	WidgetMgr::AddChildWidget (buttonDarkTheme);
 	*/
 
 	// Horizontal default values --------------------------------------------------------------------------
@@ -80,16 +80,16 @@ bool WindowManager::Initialize ()
 	auto scrollBarMgr = new ScrollBarMgr (-0.4, 0.4, 0.7, 0.8,
 										   0.07, 0.3, 10, fs::current_path ());
 
-	WinMgr::AddChildWidget (scrollBarMgr);
+	WidgetMgr::AddChildWidget (scrollBarMgr);
 
 	//auto button = new RectTexButtonText (0.0, +0.5, 0.3, 0.05, "Hello");
 
 	//auto scrollerV = new ScrollerVertical   ( 0.75, +0.4, 0.5, 0.1, 0.3);
 	//auto scrollerH = new ScrollerHorizontal (-0.75, -0.4, 1.5, 0.1, 0.15);
 
-	//WinMgr::AddChildWidget (scrollerH);
-	//WinMgr::AddChildWidget (scrollerV);
-	//WinMgr::AddChildWidget (button);
+	//WidgetMgr::AddChildWidget (scrollerH);
+	//WidgetMgr::AddChildWidget (scrollerV);
+	//WidgetMgr::AddChildWidget (button);
 
 	return true;
 }
@@ -97,7 +97,7 @@ bool WindowManager::Initialize ()
 void WindowManager::Draw ()
 {
 	m_backGround->Draw ();
-	WinMgr::Draw ();
+	WidgetMgr::Draw ();
 }
 
 void WindowManager::Update ()
@@ -107,15 +107,15 @@ void WindowManager::Update ()
 		News newsMouseCoor ((uint16_t) SENDER_NEWS::WINAPIWNDPROC);
 		newsMouseCoor.m_news = NEWS::MOUSEMOVE;
 		newsMouseCoor.m_mousePos = InputCoorMouse::GetPosition ();
-		WinMgr::HandleNews (newsMouseCoor);
+		WidgetMgr::HandleNews (newsMouseCoor);
 	}
 	
 	int curSize = m_newsQueue->GetSize ();
 	while (curSize--)
 	{
 		News news = m_newsQueue->GetNews ();
-		WinMgr::HandleNews (news);
+		WidgetMgr::HandleNews (news);
 	}
 
-	WinMgr::Update ();
+	WidgetMgr::Update ();
 }

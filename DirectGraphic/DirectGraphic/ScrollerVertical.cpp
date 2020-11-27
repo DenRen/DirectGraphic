@@ -28,16 +28,16 @@ ScrollerVertical::ScrollerVertical (float coorX, float coorY, float length, floa
 
 	m_firstSurfaceButton = new RectTexButton (coorX, coorY, width, railLength * m_relLengthSlider / 2,
 											  def_texSurfaceButton);
-
+	m_firstSurfaceButton->Diactivate ();
 	m_secondSurfaceButton = new RectTexButton (coorX, coorY - railLength * m_relLengthSlider / 2, width,
 											   railLength * (1 - m_relLengthSlider / 2),
 											   def_texSurfaceButton);
 
-	WinMgr::AddChildWidget (m_scrollSlider);
-	WinMgr::AddChildWidget (m_firstButtonArrow);
-	WinMgr::AddChildWidget (m_secondButtonArrow);
-	WinMgr::AddChildWidget (m_firstSurfaceButton);
-	WinMgr::AddChildWidget (m_secondSurfaceButton);
+	WidgetMgr::AddChildWidget (m_scrollSlider);
+	WidgetMgr::AddChildWidget (m_firstButtonArrow);
+	WidgetMgr::AddChildWidget (m_secondButtonArrow);
+	WidgetMgr::AddChildWidget (m_firstSurfaceButton);
+	WidgetMgr::AddChildWidget (m_secondSurfaceButton);
 }
 
 void ScrollerVertical::InitDefTex_FirstButtonArrow (const char *wait, const char *focused, const char *clicked)
@@ -73,14 +73,8 @@ void ScrollerVertical::SetSlider (float state)
 {
 	const float eps = 1e-5;
 
-	if (state <= -0.0001)
-	{
-		state = 0.0f;
-	}
-	else if (state >= 1.0001)
-	{
-		state = 1.0f;
-	}
+		 if (state <= -0.0001)	state = 0.0f; 
+	else if (state >=  1.0001)	state = 1.0f;
 
 	//if (state <=     m_relLengthSlider / 2) state =        m_relLengthSlider / 2;
 	//if (state >= 1 - m_relLengthSlider / 2) state = 1.0f - m_relLengthSlider / 2;
@@ -89,13 +83,18 @@ void ScrollerVertical::SetSlider (float state)
 	state = m_relLengthSlider / 2 + (1 - m_relLengthSlider) * state;
 	float stateOld = m_relLengthSlider / 2 + (1 - m_relLengthSlider) * m_stateSlider;
 
-	float deltaY = 0.5 * (m_length - 2 * m_width) * ((double)state - stateOld);
+	float deltaY = 0.5 * (m_length - 2 * (double) m_width) * ((double) state - stateOld);
 
+	Coor firtstOrigin = {}, secondOrigin = {};
+	m_firstSurfaceButton->GetOrigin (firtstOrigin);
+	m_secondSurfaceButton->GetOrigin (secondOrigin);
+
+	m_firstSurfaceButton->SetOrigin (m_firstSurfaceButton->GetRectFigure ().m_coor);
 	m_firstSurfaceButton->ScaleUp (1.0f, state / stateOld);
-	m_firstSurfaceButton->Move (0.0f, -deltaY);
 
+	RectFigure rect = m_secondSurfaceButton->GetRectFigure ();
+	m_secondSurfaceButton->SetOrigin (rect.m_coor - Coor (0, rect.m_height));
 	m_secondSurfaceButton->ScaleUp (1.0f, 1 / ((1.0f - stateOld) / (1.0f - state)));
-	m_secondSurfaceButton->Move (0.0f, -deltaY);
 
 	m_scrollSlider->Move (0.0f, -2 * deltaY);
 
@@ -114,7 +113,7 @@ float ScrollerVertical::GetStateSlider ()
 
 void ScrollerVertical::Draw ()
 {
-	WinMgr::Draw ();
+	WidgetMgr::Draw ();
 }
 
 void ScrollerVertical::Update ()
@@ -136,7 +135,7 @@ void ScrollerVertical::Update ()
 	if (m_firstSurfaceButton->IsClicked ())  SetSlider (m_stateSlider - m_deltaX);
 	if (m_secondSurfaceButton->IsClicked ()) SetSlider (m_stateSlider + m_deltaX);
 
-	WinMgr::Update ();
+	WidgetMgr::Update ();
 }
 
 void ScrollerVertical::HandleNews (News news)

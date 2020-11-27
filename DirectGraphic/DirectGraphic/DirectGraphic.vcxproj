@@ -181,7 +181,7 @@
     <ClCompile Include="Widget.cpp" />
     <ClCompile Include="WinAPIManager.cpp" />
     <ClCompile Include="WindowManager.cpp" />
-    <ClCompile Include="WinMgr.cpp" />
+    <ClCompile Include="WidgetMgr.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AddFunc.h" />
@@ -221,7 +221,7 @@
     <ClInclude Include="Widget.h" />
     <ClInclude Include="WinAPIManager.h" />
     <ClInclude Include="WindowManager.h" />
-    <ClInclude Include="WinMgr.h" />
+    <ClInclude Include="WidgetMgr.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="myfile.spritefont" />

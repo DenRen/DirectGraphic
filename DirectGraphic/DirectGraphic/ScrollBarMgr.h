@@ -2,12 +2,12 @@
 
 #include <experimental/filesystem>
 
-#include "WinMgr.h"
+#include "WidgetMgr.h"
 #include "ScrollBar.h"
 
 namespace fs = std::experimental::filesystem;
 
-class ScrollBarMgr : public WinMgr
+class ScrollBarMgr : public WidgetMgr
 {
 public:
 	ScrollBarMgr (float coorX, float coorY, float width, float height,

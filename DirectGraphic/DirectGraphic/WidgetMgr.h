@@ -25,13 +25,13 @@ struct WinCoor
 	WinCoor operator / (WinCoor &rhs);
 };
 
-class WinMgr : public Widget
+class WidgetMgr : public Widget
 {
 public:
 
-	WinMgr (WinCoor coorParent);
-	WinMgr (float parentCoorX, float parentCoorY);
-	virtual ~WinMgr ();
+	WidgetMgr (WinCoor coorParent);
+	WidgetMgr (float parentCoorX, float parentCoorY);
+	virtual ~WidgetMgr ();
 
 	virtual void Draw ();
 	virtual void Update ();
@@ -40,7 +40,7 @@ public:
 	void AddChildWidget (Widget *childWidget);
 	void DeleteAllChilds ();
 
-	WinMgr &operator += (Widget *childWidget);
+	WidgetMgr &operator += (Widget *childWidget);
 
 	void AddWinMgrCoor (float &coorX, float &coorY);
 

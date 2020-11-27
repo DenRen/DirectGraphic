@@ -40,6 +40,7 @@ int NewsQueue::GetSize ()
 
 void NewsQueue::GetWinAPINews (UINT msg, WPARAM wParam, LPARAM lParam)
 {
+
     #define ADDNEWS(msg)			\
     case WM_##msg:					\
     {								\
@@ -58,7 +59,6 @@ void NewsQueue::GetWinAPINews (UINT msg, WPARAM wParam, LPARAM lParam)
     if (msg >= WM_MOUSEFIRST && msg <= WM_MOUSELAST)
     {
         WndCnf::ConvertMouseCoor (lParam, news.m_mousePos.x, news.m_mousePos.y);
-
         news.m_xarg = (void *) wParam;
 
         switch (msg) {
@@ -82,16 +82,17 @@ void NewsQueue::GetWinAPINews (UINT msg, WPARAM wParam, LPARAM lParam)
             ADDNEWS (XBUTTONUP);
             ADDNEWS (XBUTTONDBLCLK);
 
-            ADDNEWS (MOUSEHWHEEL);
+            ADDNEWS (MOUSEWHEEL);
         }
     }
 
     #undef ADDNEWS
 }
 
-
 void NewsQueue::AddNews (const News &news)
 {
+    printNews (news);
+
     SetReadyForAdd ();
 
     m_buffer[++m_tail] = news;
@@ -200,3 +201,48 @@ News::News (uint16_t idSender, NEWS news, void *args) :
     m_news (news),
     m_args (args)
 {}
+
+#define _CASE_PRINT_NEWS(news)  \
+    case NEWS::news:            \
+    {                           \
+        printf ("%s", #news);  \
+    } break
+
+void printNews (News news)
+{
+    printf ("SENDER: ");
+    if (news.m_idSender == (uint16_t) SENDER_NEWS::WINAPIWNDPROC)
+    {
+        printf ("WIN");
+    }
+    else
+    {
+        printf ("%3d", news.m_idSender);
+    }
+
+    printf (", news: ");
+    switch (news.m_news)
+    {
+    _CASE_PRINT_NEWS (MOUSEFIRST);
+    _CASE_PRINT_NEWS (MOUSEMOVE);
+
+    _CASE_PRINT_NEWS (LBUTTONCLICKED);
+    _CASE_PRINT_NEWS (LBUTTONDOWN); _CASE_PRINT_NEWS (LBUTTONUP); _CASE_PRINT_NEWS (LBUTTONDBLCLK);
+    _CASE_PRINT_NEWS (RBUTTONDOWN); _CASE_PRINT_NEWS (RBUTTONUP); _CASE_PRINT_NEWS (RBUTTONDBLCLK);
+
+    _CASE_PRINT_NEWS (MBUTTONDOWN); _CASE_PRINT_NEWS (MBUTTONUP); _CASE_PRINT_NEWS (MBUTTONDBLCLK);
+    _CASE_PRINT_NEWS (XBUTTONDOWN); _CASE_PRINT_NEWS (XBUTTONUP); _CASE_PRINT_NEWS (XBUTTONDBLCLK);
+
+    _CASE_PRINT_NEWS (MOUSEWHEEL);
+    _CASE_PRINT_NEWS (MOUSELAST);
+
+    _CASE_PRINT_NEWS (SELECT_ITEM_BAR);
+    //_CASE_PRINT_NEWS ();
+    }
+
+    
+
+    printf ("\n");
+}
+
+#undef _CASE_PRINT_NEWS

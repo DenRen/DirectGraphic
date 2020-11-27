@@ -1,14 +1,16 @@
-#include "WinMgr.h"
+#include "WidgetMgr.h"
 
-WinMgr::WinMgr (WinCoor coorParent) :
+WidgetMgr::WidgetMgr (WinCoor coorParent) :
+	Widget (nullptr),
 	m_coor (coorParent)
 {}
 
-WinMgr::WinMgr (float parentCoorX, float parentCoorY) :
+WidgetMgr::WidgetMgr (float parentCoorX, float parentCoorY) :
+	Widget (nullptr),
 	m_coor (parentCoorX, parentCoorY)
 {}
 
-WinMgr::~WinMgr ()
+WidgetMgr::~WidgetMgr ()
 {
 	int size = m_childWidgets.size ();
 	while (size--)
@@ -17,7 +19,7 @@ WinMgr::~WinMgr ()
 	}
 }
 
-void WinMgr::Draw ()
+void WidgetMgr::Draw ()
 {
 	if (Widget::IsActive ())
 	{
@@ -33,7 +35,7 @@ void WinMgr::Draw ()
 	}
 }
 
-void WinMgr::Update ()
+void WidgetMgr::Update ()
 {
 	if (Widget::IsActive ())
 	{
@@ -49,7 +51,7 @@ void WinMgr::Update ()
 	}
 }
 
-void WinMgr::HandleNews (News news)
+void WidgetMgr::HandleNews (News news)
 {
 	if (Widget::IsActive ())
 	{
@@ -65,12 +67,12 @@ void WinMgr::HandleNews (News news)
 	}
 }
 
-void WinMgr::AddChildWidget (Widget *childWidget)
+void WidgetMgr::AddChildWidget (Widget *childWidget)
 {
 	m_childWidgets.push_back (childWidget);
 }
 
-void WinMgr::DeleteAllChilds ()
+void WidgetMgr::DeleteAllChilds ()
 {
 	int size = m_childWidgets.size ();
 	while (size--)
@@ -79,14 +81,14 @@ void WinMgr::DeleteAllChilds ()
 	}
 }
 
-WinMgr &WinMgr::operator+=(Widget *childWidget)
+WidgetMgr &WidgetMgr::operator+=(Widget *childWidget)
 {
 	AddChildWidget (childWidget);
 	
 	return *this;
 }
 
-void WinMgr::AddWinMgrCoor (float &coorX, float &coorY)
+void WidgetMgr::AddWinMgrCoor (float &coorX, float &coorY)
 {
 	coorX += m_coor.x;
 	coorY += m_coor.y;

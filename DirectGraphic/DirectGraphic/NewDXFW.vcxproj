@@ -176,7 +176,7 @@
     <ClInclude Include="VertexBuffer.h" />
     <ClInclude Include="Widget.h" />
     <ClInclude Include="WinAPIManager.h" />
-    <ClInclude Include="WinMgr.h" />
+    <ClInclude Include="WidgetMgr.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AddFunc.cpp" />

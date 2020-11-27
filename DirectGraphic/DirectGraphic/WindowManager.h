@@ -1,8 +1,8 @@
 #pragma once
-#include "WinMgr.h"
+#include "WidgetMgr.h"
 #include "Rectangles.h"
 
-class WindowManager : public WinMgr
+class WindowManager : public WidgetMgr
 {
 public:
 	WindowManager (WinCoor coor);

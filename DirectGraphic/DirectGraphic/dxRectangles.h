@@ -19,8 +19,8 @@ public:
 	static void SetDefaultValue (Texture *texture, Shader *shader,
 								 ID3D11Buffer *CBMatrixes, WVPMatrixes *WVPMatrixes);
 
-	void ScaleUp (float ScaleUpX, float ScaleUpY);
-	void Move (float x, float y);
+	void ScaleUp (float scaleUpX, float scaleUpY);
+	void Move (float deltaX, float deltaY);
 
 private:
 	void InitializeVB ();

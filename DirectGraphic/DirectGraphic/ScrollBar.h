@@ -4,11 +4,11 @@
 #include <experimental/filesystem>
 
 #include "ScrollerVertical.h"
-#include "WinMgr.h"
+#include "WidgetMgr.h"
 
 namespace fs = std::experimental::filesystem;
 
-class ScrollBar : public WinMgr
+class ScrollBar : public WidgetMgr
 {
 public:
 	ScrollBar (float coorX, float coorY, float width, float height,

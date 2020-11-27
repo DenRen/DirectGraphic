@@ -58,7 +58,6 @@ bool WinAPIManager::Initialize (const char *title, unsigned width, unsigned heig
 	}
 
 	int nStyle = WS_OVERLAPPED | WS_SYSMENU | WS_VISIBLE | WS_CAPTION | WS_MINIMIZEBOX;
-	//int nStyle = CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS;
 	m_hWnd = CreateWindowEx (WS_EX_APPWINDOW, title, title,
 							 nStyle,
 							 locateX, locateY, screenWidth, screenHeight,

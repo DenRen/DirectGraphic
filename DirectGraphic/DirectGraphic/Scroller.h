@@ -1,9 +1,9 @@
 #pragma once
 
-#include "WinMgr.h"
+#include "WidgetMgr.h"
 #include "RectTexButton.h"
 
-class Scroller : public WinMgr
+class Scroller : public WidgetMgr
 {
 public:
 

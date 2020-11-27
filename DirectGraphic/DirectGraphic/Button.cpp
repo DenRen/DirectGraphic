@@ -1,12 +1,21 @@
 #include <cstdio>
 
 #include "Button.h"
+#include "DebugFunc.h"
+
+Button::Button (Widget *widget) :
+	m_widget (widget)
+{
+	if (widget == nullptr)
+	{
+		RETURN_THROW;
+	}
+}
 
 void Button::SetStateWait ()
 {
 	m_focused = false;
 }
-
 void Button::SetStateFocused ()
 {
 	m_focused = true;
@@ -30,30 +39,46 @@ void Button::RemStatePressed ()
 
 void Button::Update ()
 {
-	if (IsClicked ())
-	{ 
-		News news (GetID ());
-		news.m_news = NEWS::LBUTTONCLICKED;
-		news.m_args = nullptr;
-
-		SENDNEWS (news);
-	}
-
-	if (IsDoubleClicked ())
-	{
-		News news (Widget::GetID ());
-		news.m_news = NEWS::LBUTTONDBLCLK;
-		news.m_args = nullptr;
-
-		SENDNEWS (news);
-		m_doubleClick = false;
-	}
-
 	m_prevPressed = m_pressed;
 	
 	if (!m_focused)
 	{
 		m_pressed = false;
+	}
+}
+
+void Button::HandleNews (News news)
+{
+	if (!m_widget->IsActive ()) return;
+
+	if (news.m_idSender == (uint16_t) SENDER_NEWS::WINAPIWNDPROC)
+	{
+		if (news.m_news >= NEWS::MOUSEFIRST && news.m_news <= NEWS::MOUSELAST)
+		{
+			if (m_widget->GetShape ()->IsContain (news.m_mousePos.x, news.m_mousePos.y))
+			{
+				Button::SetStateFocused ();
+
+				if (news.m_news == NEWS::LBUTTONDOWN)
+				{
+					Button::SetStatePressed ();
+				}
+				else if (news.m_news == NEWS::LBUTTONDBLCLK)
+				{
+					Button::SetStatePressed ();
+					Button::SetStateDoubleClick ();
+				}
+			}
+			else
+			{
+				Button::RemStateFocused ();
+			}
+
+			if (news.m_news == NEWS::LBUTTONUP)
+			{
+				Button::RemStatePressed ();
+			}
+		}
 	}
 }
 

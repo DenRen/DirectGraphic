@@ -5,16 +5,23 @@
 
 // Default origin: left, up
 
-class RectShape : public Shape
+class RectShape : public Shape, public RectFigure
 {
 public:
 	RectShape (float coorX, float coorY, float width, float height);
-	bool IsContain (float coorX, float coorY) const;
-	void Move (float deltaX, float deltaY);
 
 	RectFigure GetRectFigure () const;
 
-private:
-	RectFigure m_rect;
-};
+	void SetOrigin (float coorX, float coorY);
+	void GetOrigin (float &coorX, float &coorY);
 
+	void SetOrigin (Coor coor);
+	void GetOrigin (Coor &origin) const;
+
+	bool IsContain (float coorX, float coorY) const;
+
+	void ScaleUp (float scaleX, float scaleY);
+	void Move (float deltaX, float deltaY);
+
+	void Transpose ();
+};

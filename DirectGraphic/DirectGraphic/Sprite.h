@@ -19,6 +19,7 @@ public:
 	void Render (ID3D11DeviceContext *deviceContext);	// Automaticly draw
 
 	void Move (float x, float y, float z);
+	void OrthoMove (float x, float y, float z);
 	void RotateX (float angle);
 	void RotateZ (float angle);
 	void RotateY (float angle);
@@ -103,6 +104,12 @@ template <typename VertexT, typename IndexT>
 void Sprite <VertexT, IndexT>::Move (float x, float y, float z)
 {
 	m_posTransform *= XMMatrixTranslation (x, y, z);
+}
+
+template <typename VertexT, typename IndexT>
+void Sprite <VertexT, IndexT>::OrthoMove (float x, float y, float z)
+{
+	m_orthoTransform *= XMMatrixTranslation (x, y, z);
 }
 
 template <typename VertexT, typename IndexT>

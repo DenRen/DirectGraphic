@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Widget.h"
 
 enum class BUTTONSTATE
@@ -6,18 +7,21 @@ enum class BUTTONSTATE
 	WAIT, FOCUSED, PRESSED
 };
 
-class Button : public Widget
+class Button
 {
 public:
-	virtual void SetStateWait ();
-	virtual void SetStateFocused ();
-	virtual void SetStatePressed ();
-	virtual void SetStateDoubleClick ();
+	Button (Widget *widget);
 
-	virtual void RemStateFocused ();
-	virtual void RemStatePressed ();
+	void SetStateWait ();
+	void SetStateFocused ();
+	void SetStatePressed ();
+	void SetStateDoubleClick ();
+
+	void RemStateFocused ();
+	void RemStatePressed ();
 
 	virtual void Update ();
+	virtual void HandleNews (News news);
 	virtual BUTTONSTATE GetCurrentState ();
 
 	virtual bool IsPressed ();
@@ -29,4 +33,6 @@ private:
 	bool m_pressed = false;
 	bool m_prevPressed = false;
 	bool m_doubleClick = false;
+
+	Widget *m_widget;
 };
