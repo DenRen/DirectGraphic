@@ -11,7 +11,8 @@
 WindowManager::WindowManager (WinCoor coor) :
 	WidgetMgr (coor),
 	m_newsQueue (NewsQueue::GetNewsQueue ()),
-	m_backGround (nullptr)
+	m_backGround (nullptr),
+	m_widgetMgr (*this)
 {}
 
 WindowManager::WindowManager (float coorX, float coorY) :
@@ -77,8 +78,19 @@ bool WindowManager::Initialize ()
 
 	// -------------------------------------------------------------------------------------------------
 
+	/*auto rect0 = new RectTex (0, 0.05, 0.4, 0.05, "Texture\\metall.dds");
+	m_widgetMgr += rect0;
+
+	auto rect = new RectTex (0, 0, 0.4, 0.1);
+	m_widgetMgr += rect;
+
+	rect->SetOrigin (0, -0.1);
+	rect->ScaleUp (1, 2);*/
+
+	
+
 	auto scrollBarMgr = new ScrollBarMgr (-0.4, 0.4, 0.7, 0.8,
-										   0.07, 0.3, 10, fs::current_path ());
+										   0.07, 0.1, 10, fs::current_path ());
 
 	WidgetMgr::AddChildWidget (scrollBarMgr);
 

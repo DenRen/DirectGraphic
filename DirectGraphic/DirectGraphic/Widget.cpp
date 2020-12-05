@@ -25,7 +25,6 @@ void Widget::HandleNews (News news)
         RETURN_THROW;
     }
 
-
 	if (news.m_idSender == (uint16_t) SENDER_NEWS::WINAPIWNDPROC)
 	{
         news.m_idSender = GetID ();
@@ -47,7 +46,6 @@ void Widget::HandleNews (News news)
 
                 if (m_shape->IsContain (news.m_mousePos.x, news.m_mousePos.y))
                 {
-
                     switch (news.m_news) {          // Ignore MOUSEMOVE
                         ADDNEWS (LBUTTONDOWN);
                         ADDNEWS (LBUTTONUP);

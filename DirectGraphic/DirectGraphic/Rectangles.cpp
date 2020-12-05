@@ -33,7 +33,7 @@ void RectTex::Move (float deltaX, float deltaY)
 
 void RectTex::ScaleUp (float scaleUpX, float scaleUpY)
 {
-	dxRectTex::OrthoMove (-RectShape::m_origin.x, -RectShape::m_origin.y, 0.0f);
+	dxRectTex::OrthoMove (-RectShape::m_origin.x, -RectShape::m_origin.y, 0.0f);		// Решить вопрос с origin
 	dxRectTex::ScaleUp (scaleUpX, scaleUpY);
 	dxRectTex::OrthoMove (+RectShape::m_origin.x, +RectShape::m_origin.y, 0.0f);
 

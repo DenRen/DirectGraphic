@@ -41,7 +41,7 @@ bool RectFigure::IsContain (float coorX, float coorY) const
 
 void RectFigure::ScaleUp (float scaleX, float scaleY)
 {
-	m_coor = (m_origin - m_coor) * Coor (scaleX, scaleY);
+	m_coor = (m_coor - m_origin) * Coor (scaleX, scaleY) + m_origin;
 	m_width  *= scaleX;
 	m_height *= scaleY;
 }

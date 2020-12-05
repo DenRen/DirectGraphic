@@ -15,4 +15,6 @@ public:
 private:
 	NewsQueue *m_newsQueue;
 	RectTex *m_backGround;
+
+	WidgetMgr &m_widgetMgr;
 };

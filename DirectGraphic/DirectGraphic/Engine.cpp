@@ -109,7 +109,7 @@ void Engine::LoadResources ()
     resMgr->LoadPixelShader ("Shader\\texture.fx", "PS");
 
     resMgr->LoadTexture ("Texture\\Desktop.png");
-
+    resMgr->LoadTexture ("Texture\\metall.dds");
 
     // ----------------------------------------------------------------------
 

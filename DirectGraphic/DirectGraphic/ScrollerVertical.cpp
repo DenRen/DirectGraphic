@@ -22,7 +22,6 @@ ScrollerVertical::ScrollerVertical (float coorX, float coorY, float length, floa
 	m_secondButtonArrow = new RectTexButton (coorX, coorY - railLength, width, width,
 											 def_texSecondButtonArrow);
 
-
 	m_scrollSlider = new RectTexButton (coorX, coorY, width, railLength * m_relLengthSlider,
 										def_texScrollSlider);
 
@@ -34,10 +33,10 @@ ScrollerVertical::ScrollerVertical (float coorX, float coorY, float length, floa
 											   def_texSurfaceButton);
 
 	WidgetMgr::AddChildWidget (m_scrollSlider);
-	WidgetMgr::AddChildWidget (m_firstButtonArrow);
-	WidgetMgr::AddChildWidget (m_secondButtonArrow);
 	WidgetMgr::AddChildWidget (m_firstSurfaceButton);
 	WidgetMgr::AddChildWidget (m_secondSurfaceButton);
+	WidgetMgr::AddChildWidget (m_firstButtonArrow);
+	WidgetMgr::AddChildWidget (m_secondButtonArrow);
 }
 
 void ScrollerVertical::InitDefTex_FirstButtonArrow (const char *wait, const char *focused, const char *clicked)
